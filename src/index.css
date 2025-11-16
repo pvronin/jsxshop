@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Vazir';
+    /* نام دلخواه برای استفاده در Tailwind */
+    font-style: normal;
+    font-weight: 900;
+    /* وزن معمولی */
+    src: url('./assets/fonts/Vazir-Bold-FD-WOL.woff2') format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    font-style: normal;
+    font-weight: 500;
+    /* وزن بولد */
+    src: url('./assets/fonts/Vazir-Medium-FD-WOL.woff2') format('woff2');
+    font-display: swap;
+
+}
+
+@font-face {
+    font-family: 'Vazir';
+    font-style: normal;
+    font-weight: 100;
+    /* وزن بولد */
+    src: url('./assets/fonts/Vazir-Thin-FD-WOL.woff2') format('woff2');
+    font-display: swap;
+
+}
+
+@theme{
+    --font-Vazir: Vazir, "sans-serif";
+}
+
+:root {
+    direction: rtl;
+    font-family: vazir, sans-serif;
+}
