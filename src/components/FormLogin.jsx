@@ -1,12 +1,83 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../store/slices/userSlice";
 
 export function FormLogin({ onToggle }) {
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({
+        username: "emilys", // مقدار پیشفرض برای تست سریع‌تر
+        password: "emilyspass" // مقدار پیشفرض برای تست سریع‌تر
+    });
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // 🟦 درخواست گرفتن اطلاعات کامل کاربر
+    const fetchUserInfo = async (id) => {
+        const { data } = await axios.get(`https://dummyjson.com/users/${id}`);
+        return data;
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    // ✅ Mutation برای لاگین
+    // 🔵 Mutation لاگین
+    const loginMutation = useMutation({
+        mutationFn: async (credentials) => {
+            const { data } = await axios.post(
+                "https://dummyjson.com/auth/login",
+                credentials,
+                {
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+            return data;
+        },
+        onSuccess: async (data) => {
+            // 🔹 ذخیره توکن اولیه
+            localStorage.setItem("token", data.token);
+
+            try {
+                // 🟢 درخواست دوم برای گرفتن اطلاعات کامل کاربر
+                const fullUser = await fetchUserInfo(data.id);
+
+                // 🟢 ذخیره اطلاعات کامل در Redux
+                dispatch(setUser({
+                    ...fullUser,          // اطلاعات کاملتر
+                    token: data.token     // از لاگین گرفته شده
+                }));
+
+                localStorage.setItem("user", JSON.stringify({
+                    ...fullUser,
+                    token: data.token
+                }));
+
+                navigate("/");
+            } catch (error) {
+                console.error("خطا در گرفتن اطلاعات کامل کاربر:", error);
+            }
+        },
+        onError: (error) => {
+            console.error("خطا در ورود:", error);
+        }
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        loginMutation.mutate(formData);
+    };
+
+    const handleChange = (e) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
 
     return (
         <div className="w-full max-w-sm p-8 rounded-2xl shadow-2xl backdrop-blur-xl bg-white/20 border border-white/10 transition">
@@ -16,9 +87,7 @@ export function FormLogin({ onToggle }) {
                 ورود به سیستم
             </h2>
 
-
-
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
 
                 {/* فیلد نام کاربری (Username/Email) */}
                 <div>
@@ -28,8 +97,12 @@ export function FormLogin({ onToggle }) {
                     <input
                         type="text"
                         id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
                         placeholder="نام کاربری"
                         className="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 transition duration-300"
+                        required
                     />
                 </div>
 
@@ -41,8 +114,12 @@ export function FormLogin({ onToggle }) {
                         <input
                             type={showPassword ? "text" : "password"}
                             id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
                             placeholder="رمز عبور"
                             className="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 transition duration-300"
+                            required
                         />
                         <button
                             type="button"
@@ -66,23 +143,38 @@ export function FormLogin({ onToggle }) {
                     </div>
                 </div>
 
+                {/* نمایش خطا */}
+                {loginMutation.isError && (
+                    <div className="bg-red-500/20 border border-red-500/50 text-red-200 px-4 py-3 rounded-lg text-sm">
+                        {loginMutation.error.response?.data?.message || "خطا در ورود. لطفا مجدد تلاش کنید."}
+                    </div>
+                )}
+
                 {/* دکمه ارسال (Submit Button) */}
                 <button
                     type="submit"
-                    className="w-full py-3 mt-6 bg-white/90 text-blue-800 font-extrabold rounded-lg shadow-lg hover:bg-white transition duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                    disabled={loginMutation.isPending}
+                    className="w-full py-3 mt-6 bg-white/90 text-blue-800 font-extrabold rounded-lg shadow-lg hover:bg-white transition duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    ورود
+                    {loginMutation.isPending ? "در حال ورود..." : "ورود"}
                 </button>
             </form>
 
-            {/* لینک‌های کمکی (اختیاری) */}
+            {/* اطلاعات تست */}
+            <div className="mt-6 p-4 bg-white/10 rounded-lg border border-white/20">
+                <p className="text-white/80 text-sm font-semibold mb-2">برای تست:</p>
+                <p className="text-white/70 text-xs">نام کاربری: <span className="font-mono">kminchelle</span></p>
+                <p className="text-white/70 text-xs">رمز عبور: <span className="font-mono">0lelplR</span></p>
+            </div>
+
+            {/* لینک‌های کمکی */}
             <div className="flex justify-between text-sm mt-4">
-                <a href="#" className="text-white/80 hover:text-white transition duration-300">
+                <button type="button" className="text-white/80 hover:text-white transition duration-300">
                     رمز عبور را فراموش کردم؟
-                </a>
-                <a href="#" onClick={onToggle} className="text-white/80 hover:text-white transition duration-300">
+                </button>
+                <button type="button" onClick={onToggle} className="text-white/80 hover:text-white transition duration-300">
                     ثبت نام
-                </a>
+                </button>
             </div>
 
         </div>

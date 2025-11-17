@@ -2,7 +2,7 @@ import { useState } from "react"
 import { FormLogin } from "../components/FormLogin";
 import { FormRegister } from "../components/FormRegister";
 
-export function Login_Register() {
+export default function Login_Register() {
     const [showlogin, setShowlogin] = useState(true);
 
     const toggleShowlogin = () => {
