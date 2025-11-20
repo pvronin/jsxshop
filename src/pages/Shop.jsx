@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../store/slices/Cartslice";
+import { useLocation } from "react-router-dom";
 
 export default function Shop() {
     const cart = useSelector((state) => state.cart.cart);
@@ -11,13 +12,15 @@ export default function Shop() {
     const [currentpage, setCurrentpage] = useState(1);
     const [limitproduct] = useState(12); // حذف setLimitproduct اگر نیاز به تغییر ندارید
 
+    const location = useLocation().pathname;
+
     // ✅ دریافت دسته‌بندی‌ها از DummyJSON
     useEffect(() => {
         axios
             .get("https://dummyjson.com/products/categories")
             .then((res) => setCategories(res.data))
             .catch((err) => console.error("Error fetching categories:", err));
-    }, []);
+    }, [location]);
 
     // State فیلترها و مرتب‌سازی
     const [filters, setFilters] = useState({
@@ -151,7 +154,7 @@ export default function Shop() {
                 <div className="flex flex-col lg:flex-row gap-10">
                     {/* سایدبار فیلترها */}
                     <div className="lg:w-1/4">
-                        <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 sticky top-20">
+                        <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 sticky top-30">
                             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
                                 <h2 className="text-2xl font-bold text-gray-800">تصفیه نتایج</h2>
                                 <button
@@ -387,10 +390,10 @@ export default function Shop() {
 
                                                 {/* دکمه افزودن به سبد خرید / تنظیمات تعداد */}
                                                 {cart?.find((c) => c.id === item.id) ? (
-                                                    <div className="flex justify-center items-center gap-4 bg-gray-100 p-2 rounded-full border border-gray-200">
+                                                    <div className="flex justify-between items-center gap-4 bg-gray-100 p-2 rounded-full border border-gray-200">
                                                         <button
                                                             onClick={() => dispatch(decrement({ id: item.id }))}
-                                                            className="bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full font-bold transition duration-150 shadow-md"
+                                                            className="bg-blue-500 hover:bg-blue-600 text-white w-10 h-10 rounded-full transition duration-150 shadow-md"
                                                         >
                                                             -
                                                         </button>
@@ -408,7 +411,7 @@ export default function Shop() {
                                                                     })
                                                                 )
                                                             }
-                                                            className="bg-emerald-600 hover:bg-emerald-700 text-white w-8 h-8 rounded-full font-bold transition duration-150 shadow-md"
+                                                            className="bg-blue-600 hover:bg-blue-700 text-white w-10 h-10 rounded-full font-bold transition duration-150 shadow-md"
                                                         >
                                                             +
                                                         </button>

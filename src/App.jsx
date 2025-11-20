@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react'
 import './App.css'
 import LoadingSpinner from './components/LoadingSpinner';
 import { Profile } from './pages/Profile';
+import { CategoryRouter } from './pages/CategoryRouter';
 const Home = lazy(() => import('./pages/Home'));
 const Shop = lazy(() => import('./pages/Shop'));
 const Cart = lazy(() => import('./pages/Cart'));
@@ -11,7 +12,7 @@ const MainLayout = lazy(() => import('./MainLayout'));
 
 function App() {
     return (
-        <Suspense fallback={<LoadingSpinner/>}>
+        <Suspense fallback={<LoadingSpinner />}>
             <Routes>
 
                 {/* صفحات با Layout */}
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/shop" element={<Shop />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/shop/*" element={<CategoryRouter />} />
                 </Route>
 
                 {/* صفحه بدون Layout */}

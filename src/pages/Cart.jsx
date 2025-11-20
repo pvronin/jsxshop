@@ -11,7 +11,7 @@ export default function Cart() {
 
     return (
         <div className="min-h-screen bg-gray-50 py-10"> {/* پس زمینه روشن */}
-            <div className="container mx-auto px-4 max-w-5xl">
+            <div className="container mx-auto px-4">
                 <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center">
                     سبد خرید شما 🛍️
                 </h1>
@@ -51,7 +51,7 @@ export default function Cart() {
                                             <div className="flex items-center gap-2 border border-gray-300 rounded-full p-1">
                                                 <button
                                                     onClick={() => dispatch(decrement({ id: item.id }))}
-                                                    className="bg-red-500 hover:bg-red-600 text-white w-7 h-7 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
+                                                    className="bg-blue-400 hover:bg-blue-500 text-white w-7 h-7 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
                                                 >
                                                     −
                                                 </button>
@@ -60,7 +60,7 @@ export default function Cart() {
                                                 </span>
                                                 <button
                                                     onClick={() => dispatch(increment({ id: item.id }))}
-                                                    className="bg-green-500 hover:bg-green-600 text-white w-7 h-7 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
+                                                    className="bg-blue-500 hover:bg-blue-600 text-white w-7 h-7 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
                                                 >
                                                     +
                                                 </button>

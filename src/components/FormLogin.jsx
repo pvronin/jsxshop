@@ -18,6 +18,8 @@ export function FormLogin({ onToggle }) {
     // 🟦 درخواست گرفتن اطلاعات کامل کاربر
     const fetchUserInfo = async (id) => {
         const { data } = await axios.get(`https://dummyjson.com/users/${id}`);
+        console.log(data);
+
         return data;
     };
 
@@ -160,12 +162,6 @@ export function FormLogin({ onToggle }) {
                 </button>
             </form>
 
-            {/* اطلاعات تست */}
-            <div className="mt-6 p-4 bg-white/10 rounded-lg border border-white/20">
-                <p className="text-white/80 text-sm font-semibold mb-2">برای تست:</p>
-                <p className="text-white/70 text-xs">نام کاربری: <span className="font-mono">kminchelle</span></p>
-                <p className="text-white/70 text-xs">رمز عبور: <span className="font-mono">0lelplR</span></p>
-            </div>
 
             {/* لینک‌های کمکی */}
             <div className="flex justify-between text-sm mt-4">
