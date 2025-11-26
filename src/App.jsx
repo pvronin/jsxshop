@@ -3,25 +3,49 @@ import { Suspense, lazy } from 'react'
 import './App.css'
 import LoadingSpinner from './components/LoadingSpinner';
 import { Profile } from './pages/Profile';
-import { CategoryRouter } from './pages/CategoryRouter';
+import ScrollToTop from './components/ScrollToTop';
+import ProtectedRoute from './components/ProtectedRoute';
+import { ProductDetail } from './pages/ProductDetail';
+
+
 const Home = lazy(() => import('./pages/Home'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Privacy_policy = lazy(() => import('./pages/Privacy_policy'));
+const Contactus = lazy(() => import('./pages/Contactus'));
+const About = lazy(() => import('./pages/About'));
 const Shop = lazy(() => import('./pages/Shop'));
 const Cart = lazy(() => import('./pages/Cart'));
 const Login_Register = lazy(() => import('./pages/Login_Register'));
 const MainLayout = lazy(() => import('./MainLayout'));
 
 function App() {
+
     return (
         <Suspense fallback={<LoadingSpinner />}>
+            <ScrollToTop />
             <Routes>
 
                 {/* صفحات با Layout */}
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/shop" element={<Shop />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/shop/*" element={<CategoryRouter />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contactus" element={<Contactus />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy_policy" element={<Privacy_policy />} />
+
+
+                    <Route path="/shop">
+                        <Route index element={<Shop />} />
+                        <Route path="*" element={<Shop />} />
+                        <Route path="/shop/product/:id" element={<ProductDetail />} /> {/* صفحه جدید */}
+                    </Route>
+
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/cart" element={<Cart />} />
+                    </Route>
+
+                    {/* <Route path="/shop/*" element={<CategoryRouter />} /> */}
                 </Route>
 
                 {/* صفحه بدون Layout */}

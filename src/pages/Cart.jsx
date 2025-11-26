@@ -51,7 +51,7 @@ export default function Cart() {
                                             <div className="flex items-center gap-2 border border-gray-300 rounded-full p-1">
                                                 <button
                                                     onClick={() => dispatch(decrement({ id: item.id }))}
-                                                    className="bg-blue-400 hover:bg-blue-500 text-white w-7 h-7 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
+                                                    className="bg-blue-400 hover:bg-blue-500 text-white w-8 h-8 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
                                                 >
                                                     −
                                                 </button>
@@ -60,7 +60,7 @@ export default function Cart() {
                                                 </span>
                                                 <button
                                                     onClick={() => dispatch(increment({ id: item.id }))}
-                                                    className="bg-blue-500 hover:bg-blue-600 text-white w-7 h-7 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
+                                                    className="bg-blue-500 hover:bg-blue-600 text-white w-8 h-8 rounded-full text-lg leading-none flex items-center justify-center transition-colors"
                                                 >
                                                     +
                                                 </button>

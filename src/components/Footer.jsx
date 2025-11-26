@@ -49,8 +49,8 @@ export default function Footer() {
                         <h3 className="text-lg font-semibold mb-4">اطلاعات ما</h3>
                         <ul className="space-y-3">
                             <FooterLink to="/about">درباره ما</FooterLink>
-                            <FooterLink to="/contact">تماس با ما</FooterLink>
-                            <FooterLink to="/privacy-policy">سیاست حفظ حریم خصوصی</FooterLink>
+                            <FooterLink to="/contactus">تماس با ما</FooterLink>
+                            <FooterLink to="/privacy_policy">سیاست حفظ حریم خصوصی</FooterLink>
                             <FooterLink to="/terms">شرایط و ضوابط</FooterLink>
                         </ul>
                     </div>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { FaUserCircle, FaShoppingCart, FaHome, FaStore } from 'react-icons/fa';
+import { FaUserCircle, FaShoppingCart, FaHome, FaStore, FaCircle } from 'react-icons/fa';
 import { useEffect } from "react";
 import { fetchCategories } from "../store/slices/CategorySlice";
 
@@ -8,7 +8,6 @@ export default function Header() {
 
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.category.categories);
-    console.log(categories);
     useEffect(() => {
         if (categories.length === 0) {
             dispatch(fetchCategories());
@@ -88,17 +87,22 @@ export default function Header() {
                     transition-all duration-300 ease-out grid grid-cols-3 gap-6 z-50">
                                         {categories?.length > 0 ? (
                                             categories.map((cat, index) => (
-                                                <div key={index} className="flex flex-col">
+                                                // 🌟 تغییر کلیدی در div بیرونی: حذف flex-col و اعمال flex
+                                                <div key={index}>
                                                     <Link
                                                         to={`/shop/${cat}`}
-                                                        className="text-blue-700 font-bold text-sm hover:underline"
+                                                        // 🌟 تغییر کلیدی در Link: اضافه کردن 'flex items-center gap-2'
+                                                        className="flex items-center gap-2 text-blue-700 text-sm hover:underline hover:text-blue-900 transition-colors"
                                                     >
+                                                        {/* 💧 آیکون دایره آبی */}
+                                                        <FaCircle className="text-[6px] text-blue-500 flex-shrink-0" />
+
                                                         {cat}
                                                     </Link>
                                                 </div>
                                             ))
                                         ) : (
-                                            <p className="text-gray-400 col-span-2">در حال بارگذاری...</p>
+                                            <p className="text-gray-400 col-span-3 text-center">در حال بارگذاری...</p>
                                         )}
                                     </div>
                                 </div>
