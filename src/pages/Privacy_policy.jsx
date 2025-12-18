@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
     },
     {
       title: "حقوق شما",
-      content: `شما حق دارید به اطلاعات شخصی خود دسترسی داشته، آن را اصلاح یا حذف کنید. همچنین می‌توانید در هر زمان با ارسال ایمیل به info@example.com، رضایت خود را لغو نمایید.`
+      content: `شما حق دارید به اطلاعات شخصی خود دسترسی داشته، آن را اصلاح یا حذف کنید. همچنین می‌توانید در هر زمان با ارسال ایمیل به emeil.seyyed.arm@gmail.com، رضایت خود را لغو نمایید.`
     }
   ];
 
@@ -81,8 +81,8 @@ const PrivacyPolicy = () => {
             <p className="text-blue-700 mb-4">
               اگر سوالی درباره سیاست حریم خصوصی ما دارید، خوشحال می‌شویم که پاسخ دهیم.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors duration-300">
-              تماس با ما
+            <button  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors duration-300">
+              <a href="tel:989150647572" >تماس با ما</a>
             </button>
           </div>
         </div>

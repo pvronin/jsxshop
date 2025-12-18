@@ -259,7 +259,7 @@ export default function HomePage() {
                                     768: { slidesPerView: 3, spaceBetween: 30 },
                                     1024: { slidesPerView: 4, spaceBetween: 30 },
                                 }}
-                                className="w-full h-auto !p-10"
+                                className="w-full h-auto !p-16"
                             >
                                 {products.map((product) => (
                                     <SwiperSlide key={product.id} className="pb-12">
@@ -282,11 +282,11 @@ export default function HomePage() {
                     <h3 className="text-2xl md:text-3xl font-bold mb-4">نیاز به کمک دارید؟</h3>
                     <p className="mb-6 max-w-2xl mx-auto">تیم پشتیبانی ما 24/7 آماده پاسخگویی به سوالات شماست</p>
                     <div className="flex flex-col md:flex-row gap-4 justify-center">
-                        <a href="tel:+982100000000" className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-all">
+                        <a href="tel:+989150647572" className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-all">
                             <FaPhone />
                             تماس با پشتیبانی
                         </a>
-                        <a href="mailto:support@example.com" className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/10 transition-all">
+                        <a href="mailto:emeil.seyyed.arm@gmail.com" className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/10 transition-all">
                             <FaEnvelope />
                             ارسال ایمیل
                         </a>
@@ -318,7 +318,7 @@ export default function HomePage() {
                             </button>
                         </div>
                         <p className="text-slate-400 text-sm mt-4">
-                            با عضویت، با <Link to="/privacy" className="text-blue-300 hover:underline">سیاست حریم خصوصی</Link> ما موافقت می‌کنید.
+                            با عضویت، با <Link to="/privacy_policy" className="text-blue-300 hover:underline">سیاست حریم خصوصی</Link> ما موافقت می‌کنید.
                         </p>
                     </motion.div>
                 </div>

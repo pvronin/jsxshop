@@ -13,7 +13,7 @@ const getUserFromLocalStorage = () => {
 
 const initialState = {
     user: getUserFromLocalStorage(), // ✅ بازیابی از localStorage
-    isAuthenticated: !!localStorage.getItem("token") // ✅ چک کردن توکن
+    isAuthenticated: !! localStorage.getItem("token") // ✅ چک کردن توکن
 };
 
 export const userSlice = createSlice({
