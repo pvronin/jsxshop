@@ -172,7 +172,7 @@ export default function HomePage() {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                             {featuredProducts.map((product, index) => (
                                 <motion.div
                                     key={product.id}

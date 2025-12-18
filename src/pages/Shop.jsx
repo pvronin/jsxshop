@@ -100,10 +100,10 @@ export default function Shop() {
         <div className="min-h-screen bg-gray-100 py-10">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
+                    <h1 className="text-3xl lg:text-5xl font-extrabold text-gray-900 mb-4">
                         <span className="text-emerald-600">🛍️ فروشگاه</span> محصولات ما
                     </h1>
-                    <p className="text-xl text-gray-500">محصولات منتخب از DummyJSON API با بهترین کیفیت و قیمت</p>
+                    <p className="text-base text-gray-500">محصولات منتخب از DummyJSON API با بهترین کیفیت و قیمت</p>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-10">
