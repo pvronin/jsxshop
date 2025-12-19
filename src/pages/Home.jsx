@@ -151,18 +151,19 @@ export default function HomePage() {
             </section>
 
             {/* محصولات ویژه */}
-            <section className="py-20 px-6 bg-white">
+            <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
                 <div className="container mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16"
+                        transition={{ duration: 0.5 }}
+                        className="text-center mb-12 md:mb-16"
                     >
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
+                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 mb-3 md:mb-4">
                             محصولات ویژه
                         </h2>
-                        <p className="text-slate-600 max-w-2xl mx-auto">
+                        <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto px-4">
                             منتخبی از بهترین محصولات با بیشترین تخفیف
                         </p>
                     </motion.div>
@@ -172,39 +173,89 @@ export default function HomePage() {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                            {featuredProducts.map((product, index) => (
-                                <motion.div
-                                    key={product.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    whileHover={{ y: -5 }}
+                        <>
+                            {/* حالت دسکتاپ - گرید */}
+                            <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6">
+                                {featuredProducts.map((product, index) => (
+                                    <motion.div
+                                        key={product.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: index * 0.12 }}
+                                        whileHover={{ y: -5 }}
+                                    >
+                                        <ProductCard item={product} />
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* حالت موبایل - اسلایدر */}
+                            <div className="md:hidden px-2">
+                                <Swiper
+                                    modules={[Navigation, Pagination, Autoplay]}
+                                    spaceBetween={16}
+                                    slidesPerView={1.1}
+                                    centeredSlides={true}
+                                    loop={true}
+                                    autoplay={{
+                                        delay: 3000,
+                                        disableOnInteraction: false,
+                                    }}
+                                    pagination={{
+                                        clickable: true,
+                                        el: '.swiper-pagination-vip',
+                                        renderBullet: function (index, className) {
+                                            return '<span class="' + className + '">' + '</span>';
+                                        },
+                                    }}
+                                    navigation={true}
+                                    breakpoints={{
+                                        640: {
+                                            slidesPerView: 1.5,
+                                            spaceBetween: 20,
+                                        },
+                                        768: {
+                                            slidesPerView: 2,
+                                            spaceBetween: 24,
+                                        },
+                                    }}
+                                    className="pb-10"
                                 >
-                                    <ProductCard item={product} />
-                                </motion.div>
-                            ))}
-                        </div>
+                                    {featuredProducts.map((product) => (
+                                        <SwiperSlide key={product.id} className="pb-12">
+                                            <motion.div
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ duration: 0.3 }}
+                                            >
+                                                <ProductCard item={product} />
+                                            </motion.div>
+                                        </SwiperSlide>
+                                    ))}
+                                    <div className="swiper-pagination-vip flex justify-center gap-4"></div>
+                                </Swiper>
+                            </div>
+                        </>
                     )}
 
-                    <div className="text-center mt-12">
+                    <div className="text-center mt-10 md:mt-12">
                         <Link
                             to="/shop"
-                            className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
+                            className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg md:rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
                         >
                             مشاهده همه محصولات
-                            <FaArrowLeft />
+                            <FaArrowLeft className="text-sm md:text-base" />
                         </Link>
                     </div>
                 </div>
             </section>
 
             {/* اسلایدر محصولات جدید */}
-            <section className="py-20 px-6 bg-slate-100">
+            <section className="py-18 px-6 bg-slate-100">
                 <div className="container mx-auto">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="text-center mb-10"
@@ -259,17 +310,27 @@ export default function HomePage() {
                                     768: { slidesPerView: 3, spaceBetween: 30 },
                                     1024: { slidesPerView: 4, spaceBetween: 30 },
                                 }}
-                                className="w-full h-auto !p-16"
+                                className="w-full h-auto !p-10"
                             >
-                                {products.map((product) => (
+                                {products.map((product, index) => (
                                     <SwiperSlide key={product.id} className="pb-12">
-                                        <ProductCard item={product} />
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                            viewport={{ once: true, amount: 0.3 }}
+                                            transition={{
+                                                duration: 0.5,
+                                                delay: (index % 4) * 0.1
+                                            }}
+                                        >
+                                            <ProductCard item={product} />
+                                        </motion.div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
 
                             {/* Pagination سفارشی */}
-                            <div className="swiper-pagination flex justify-center gap-2 mt-6"></div>
+                            <div className="swiper-pagination flex justify-center gap-2"></div>
                         </div>
                     )}
                 </div>

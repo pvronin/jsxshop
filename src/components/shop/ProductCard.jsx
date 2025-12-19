@@ -14,7 +14,7 @@ export default function ProductCard({ item }) {
                 alt={item.title}
                 className="w-full h-48 object-contain p-4 bg-gray-50 border-b border-gray-100"
             />
-            <div className="p-6">
+            <div className="p-5">
                 <h3 className="font-extrabold text-xl text-gray-900 mb-2 truncate">
                     {item.title}
                 </h3>
@@ -60,9 +60,9 @@ export default function ProductCard({ item }) {
                 ) : (
                     <button
                         onClick={() => dispatch(increment({ id: item.id, name: item.title, price: item.price, image: item.thumbnail }))}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-base font-bold transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-blue-200/50"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-xs md:text-base font-bold transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-blue-200/50"
                     >
-                        🛒 افزودن به سبد خرید
+                        🛒 افزودن به سبد
                     </button>
                 )}
             </div>
