@@ -5,7 +5,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import { Profile } from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
-import { ProductDetail } from './pages/ProductDetail';
+import  Product  from './pages/Product';
 
 
 const Home = lazy(() => import('./pages/Home'));
@@ -34,10 +34,11 @@ function App() {
                     <Route path="/privacy_policy" element={<Privacy_policy />} />
 
 
+              // مسیر را اینگونه اصلاح کنید تا تداخلی با صفحه اصلی شاپ نداشته باشد
                     <Route path="/shop">
                         <Route index element={<Shop />} />
+                        <Route path="products/:id" element={<Product />} />
                         <Route path="*" element={<Shop />} />
-                        <Route path="/shop/product/:id" element={<ProductDetail />} /> {/* صفحه جدید */}
                     </Route>
 
                     <Route element={<ProtectedRoute />}>

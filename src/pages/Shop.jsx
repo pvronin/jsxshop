@@ -43,6 +43,8 @@ export default function Shop() {
         return params.toString();
     };
 
+
+
     const fetchProducts = async () => {
         const queryString = buildQueryParams();
         const url = filters.category
@@ -51,6 +53,8 @@ export default function Shop() {
         const { data } = await axios.get(url);
         return data;
     };
+
+
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["products", filters, sortBy],
