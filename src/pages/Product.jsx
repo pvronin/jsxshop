@@ -281,7 +281,7 @@ export function Product() {
                         </div>
 
                         <button
-                            onClick={() => dispatch(increment({ id: product.id, name: product.title, price: product.price, image: product.thumbnail }))}
+                            onClick={() => dispatch(increment({ id: product.id, name: product.title, price: product.price, image: product.thumbnail, quantity: quantity }))}
                             disabled={product.stock === 0}
                             className={`w-full py-3 rounded-lg font-medium text-white transition-all ${product.stock > 0
                                 ? 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800'

@@ -5,7 +5,7 @@ export default function MyMap() {
         <MapContainer
             center={[36.244, 59.592]}
             zoom={16}
-            style={{ height: "600px", width: "100%" }}
+            style={{ height: "500px", width: "100%" }}
         >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
