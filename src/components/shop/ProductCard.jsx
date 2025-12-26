@@ -18,7 +18,7 @@ export default function ProductCard({ item }) {
                     className="w-full h-48 object-contain p-4 bg-gray-50 border-b border-gray-100"
                 />
             </Link>
-            <div className="p-5">
+            <div className="p-6">
                 <h3 className="font-extrabold text-xl text-gray-900 mb-2 truncate">
                     {item.title}
                 </h3>
@@ -44,10 +44,10 @@ export default function ProductCard({ item }) {
                 </div>
 
                 {cartItem ? (
-                    <div className="flex justify-between items-center gap-4 bg-gray-100 p-1 rounded-full border border-gray-200">
+                    <div className="h-15 flex justify-between items-center gap-4 bg-gray-100 p-3 rounded-full border border-gray-200">
                         <button
                             onClick={() => dispatch(decrement({ id: item.id }))}
-                            className="bg-blue-500 hover:bg-blue-600 text-white w-10 h-10 rounded-full transition duration-150 shadow-md"
+                            className="bg-blue-500 hover:bg-blue-600 text-white w-11 h-11 rounded-full transition duration-150 shadow-md"
                         >
                             -
                         </button>
@@ -56,7 +56,7 @@ export default function ProductCard({ item }) {
                         </span>
                         <button
                             onClick={() => dispatch(increment({ id: item.id, name: item.title, price: item.price, image: item.thumbnail }))}
-                            className="bg-blue-600 hover:bg-blue-700 text-white w-10 h-10 rounded-full font-bold transition duration-150 shadow-md"
+                            className="bg-blue-600 hover:bg-blue-700 text-white w-11 h-11 rounded-full font-bold transition duration-150 shadow-md"
                         >
                             +
                         </button>
@@ -64,7 +64,7 @@ export default function ProductCard({ item }) {
                 ) : (
                     <button
                         onClick={() => dispatch(increment({ id: item.id, name: item.title, price: item.price, image: item.thumbnail }))}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-xs md:text-base font-bold transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-blue-200/50"
+                        className="w-full h-15 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl text-sm md:text-base font-bold transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-blue-200/50"
                     >
                         🛒 افزودن به سبد
                     </button>

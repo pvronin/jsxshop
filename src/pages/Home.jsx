@@ -209,7 +209,7 @@ export default function HomePage() {
                                             return '<span class="' + className + '">' + '</span>';
                                         },
                                     }}
-                                    navigation={true}
+                                    navigation={false}
                                     breakpoints={{
                                         640: {
                                             slidesPerView: 1.5,
@@ -304,11 +304,23 @@ export default function HomePage() {
                                     prevEl: '.swiper-prev-btn',
                                     nextEl: '.swiper-next-btn',
                                 }}
-                                slidesPerGroup={2}
+                                slidesPerGroup={1} // پیش‌فرض برای موبایل
                                 breakpoints={{
-                                    640: { slidesPerView: 2, spaceBetween: 20 },
-                                    768: { slidesPerView: 3, spaceBetween: 30 },
-                                    1024: { slidesPerView: 4, spaceBetween: 30 },
+                                    640: {
+                                        slidesPerView: 2,
+                                        spaceBetween: 20,
+                                        slidesPerGroup: 1 // تا 768px یکی یکی
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                        spaceBetween: 30,
+                                        slidesPerGroup: 2 // از 768px دوتا دوتا
+                                    },
+                                    1024: {
+                                        slidesPerView: 4,
+                                        spaceBetween: 30,
+                                        slidesPerGroup: 2 // دوتا دوتا
+                                    },
                                 }}
                                 className="w-full h-auto !p-10"
                             >
