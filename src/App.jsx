@@ -5,7 +5,8 @@ import LoadingSpinner from './components/LoadingSpinner';
 import { Profile } from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
-import  Product  from './pages/Product';
+import Product from './pages/Product';
+import { Test } from './pages/Test';
 
 
 const Home = lazy(() => import('./pages/Home'));
@@ -32,6 +33,8 @@ function App() {
                     <Route path="/contactus" element={<Contactus />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy_policy" element={<Privacy_policy />} />
+                    <Route path="/test" element={<Test />} />
+
 
 
               // مسیر را اینگونه اصلاح کنید تا تداخلی با صفحه اصلی شاپ نداشته باشد
