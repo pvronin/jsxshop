@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaUserCircle, FaShoppingCart, FaHome, FaStore, FaCircle, FaSearch } from 'react-icons/fa';
+import { RiArrowRightWideFill } from "react-icons/ri";
+
 import { useEffect, useState, useRef } from "react";
 import { fetchCategories } from "../store/slices/CategorySlice";
 
@@ -66,13 +68,6 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-50 shadow-xl">
-            {/* 👋 نوار سلام */}
-            {isAuthenticated && user && (
-                <div className={`bg-blue-500 text-white text-[10px] md:text-sm px-4 text-center overflow-hidden transition-all duration-300 ${showWelcome ? "max-h-12 py-1.5 md:py-2 opacity-100" : "max-h-0 py-0 opacity-0"
-                    }`}>
-                    👋 سلام {user.firstName} {user.lastName}!
-                </div>
-            )}
 
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 border-b border-blue-500">
                 <nav className="container mx-auto px-2 md:px-4">
@@ -140,13 +135,17 @@ export default function Header() {
                                             key={product.id}
                                             to={`shop/products/${product.id}`}
                                             onClick={() => { setSearchTerm(""); setSearchResults([]); }}
-                                            className="flex items-center gap-4 p-3 hover:bg-blue-50 border-b border-blue-100 last:border-0"
+                                            className="flex items-center justify-between gap-4 p-3 hover:bg-blue-50 border-b border-blue-100 last:border-0 group transition-all"
                                         >
-                                            <img src={product.thumbnail} alt="" className="w-8 h-8 object-cover rounded" />
-                                            <div className="flex flex-col gap-2">
-                                                <span className="text-xs md:text-xs font-medium text-gray-800 line-clamp-1">{product.title}</span>
-                                                <span className="text-[9px] md:text-xs text-blue-600 font-bold">${product.price}</span>
+                                            <div className="flex items-center gap-2">
+                                                <img src={product.thumbnail} alt="" className="w-8 h-8 object-cover rounded" />
+                                                <div className="flex flex-col gap-2">
+                                                    <span className="text-xs md:text-xs font-medium text-gray-800 line-clamp-1">{product.title}</span>
+                                                    <span className="text-[9px] md:text-xs text-blue-600 font-bold">${product.price}</span>
+                                                </div>
                                             </div>
+                                            {/* آیکون اصلاح شده با ترنزیشن و هوور گروهی صحیح */}
+                                            <RiArrowRightWideFill className="opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-blue-600" />
                                         </Link>
                                     ))}
                                 </div>

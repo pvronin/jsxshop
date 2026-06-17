@@ -10,7 +10,10 @@ export default function ProductCard({ item }) {
 
     return (
 
-        <div className="flex flex-col justify-between bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-200 overflow-hidden">
+        <div className="flex flex-col relative justify-between bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-200 overflow-hidden">
+            <div className="absolute top-2 right-2 bg-blue-500 rounded-lg p-2 flex items-center justify-center text-sm text-white font-bold">
+                {item.discountPercentage}%
+            </div>
             <Link to={`/shop/products/${item.id}`}>
                 <img
                     src={item.thumbnail}

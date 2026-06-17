@@ -25,7 +25,6 @@ function App() {
         <Suspense fallback={<LoadingSpinner />}>
             <ScrollToTop />
             <Routes>
-
                 {/* صفحات با Layout */}
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Home />} />

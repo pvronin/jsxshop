@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
-// ایمپورت کامپوننت‌های جدید
+// ایمپورت کامپوننت‌ها
 import ShopHeader from "../components/shop/ShopHeader";
 import ProductCard from "../components/shop/ProductCard";
 import ShopPagination from "../components/shop/ShopPagination";
 import ShopSidebar from "../components/shop/ShopSidebar";
+import MobileSidebarWrapper from "../components/shop/MobileSidebarWrapper"; // ← ایمپورت جدید
 
 export default function Shop() {
     const [currentpage, setCurrentpage] = useState(1);
     const [limitproduct] = useState(12);
+    const [showSidebarMobile, setShowSidebarMobile] = useState(false);
 
     const location = useLocation();
     const path = location.pathname.replace("/shop", "").split("/").filter(Boolean);
@@ -22,7 +24,6 @@ export default function Shop() {
         category: "",
         minPrice: "",
         maxPrice: "",
-        brand: "",
         rating: 0,
         stock: "all",
     });
@@ -40,10 +41,9 @@ export default function Shop() {
         if (sortBy === "price-asc") { params.append("sortBy", "price"); params.append("order", "asc"); }
         else if (sortBy === "price-desc") { params.append("sortBy", "price"); params.append("order", "desc"); }
         else if (sortBy === "rating-desc") { params.append("sort", "rating"); params.append("order", "desc"); }
+        else if (sortBy === "discount-desc") { params.append("sort", "discount"); params.append("order", "desc"); }
         return params.toString();
     };
-
-
 
     const fetchProducts = async () => {
         const queryString = buildQueryParams();
@@ -53,8 +53,6 @@ export default function Shop() {
         const { data } = await axios.get(url);
         return data;
     };
-
-
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["products", filters, sortBy],
@@ -67,10 +65,10 @@ export default function Shop() {
             if (filters.stock === "inStock") filtered = filtered.filter((p) => p.stock > 0);
             else if (filters.stock === "outOfStock") filtered = filtered.filter((p) => p.stock === 0);
 
-            // مرتب‌سازی کلاینت ساید اضافه بر کوئری
             if (sortBy === "rating-desc") filtered = [...filtered].sort((a, b) => b.rating - a.rating);
             if (sortBy === "price-asc") filtered = [...filtered].sort((a, b) => a.price - b.price);
             if (sortBy === "price-desc") filtered = [...filtered].sort((a, b) => b.price - a.price);
+            if (sortBy === "discount-desc") filtered = [...filtered].sort((a, b) => b.discountPercentage - a.discountPercentage);
 
             return filtered;
         },
@@ -102,6 +100,19 @@ export default function Shop() {
 
     return (
         <div className="min-h-screen bg-gray-100 py-10">
+            {/* سایدبار موبایل با Wrapper جدید */}
+            <MobileSidebarWrapper
+                isOpen={showSidebarMobile}
+                onClose={() => setShowSidebarMobile(false)}
+            >
+                <ShopSidebar
+                    filters={filters}
+                    updateFilter={updateFilter}
+                    clearFilters={clearFilters}
+                    topSpace={2}
+                />
+            </MobileSidebarWrapper>
+
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h1 className="text-3xl lg:text-5xl font-extrabold text-gray-900 mb-4">
@@ -111,8 +122,8 @@ export default function Shop() {
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-10">
-                    {/* سایدبار */}
-                    <div className="lg:w-1/4">
+                    {/* سایدبار دسکتاپ */}
+                    <div className="hidden lg:block lg:w-1/4">
                         <ShopSidebar
                             filters={filters}
                             updateFilter={updateFilter}
@@ -127,8 +138,8 @@ export default function Shop() {
                             shownCount={Math.min(limitproduct, currentProducts.length)}
                             sortBy={sortBy}
                             updateSort={updateSort}
-                            currentPage={currentpage}
-                            totalPages={countpagination}
+                            onMenuClick={() => setShowSidebarMobile(!showSidebarMobile)}
+                            showSidebarMobile={showSidebarMobile}
                         />
 
                         {isLoading ? (

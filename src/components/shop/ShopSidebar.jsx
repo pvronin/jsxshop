@@ -1,11 +1,11 @@
 // components/shop/ShopSidebar.jsx
-export default function ShopSidebar({ filters, updateFilter, clearFilters }) {
+export default function ShopSidebar({ filters, updateFilter, clearFilters, topSpace=20 }) {
     return (
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 sticky top-30">
+        <div className={`bg-white rounded-3xl shadow-xl border border-gray-200 p-8 sticky top-${topSpace}`}>
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
-                <h2 className="text-2xl font-bold text-gray-800">تصفیه نتایج</h2>
-                <button onClick={clearFilters} className="text-sm font-semibold text-red-500 hover:text-red-700 transition duration-150">
-                    پاک کردن همه 🗑️
+                <h2 className="text-lg xl:text-2xl font-bold text-gray-800">فیلتر ها</h2>
+                <button onClick={clearFilters} className="text-xs font-semibold text-red-500 hover:text-red-700 transition duration-150">
+                    پاک کردن همه
                 </button>
             </div>
 
