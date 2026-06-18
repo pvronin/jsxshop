@@ -22,13 +22,13 @@ export default function ProductCard({ item }) {
                 />
             </Link>
             <div className="p-6">
-                <h3 className="font-extrabold text-xl text-gray-900 mb-2 truncate">
+                <h3 className="font-extrabold md:text-xl text-gray-900 mb-2 truncate">
                     {item.title}
                 </h3>
                 <p className="text-sm text-emerald-600 font-medium mb-3">
                     {item.brand}
                 </p>
-                <p className="text-sm text-gray-500 mb-4 line-clamp-3">
+                <p className="text-sm text-gray-500 mb-4 line-clamp-2">
                     {item.description}
                 </p>
 

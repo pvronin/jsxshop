@@ -41,17 +41,17 @@ export default function HomePage() {
         <div className="flex flex-col w-full overflow-x-hidden">
             {/* هدر اصلی با طراحی مدرن */}
             <section className="relative py-28 px-6 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 text-white">
-                <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+                <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, x: 80 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.7 }}
                         className="space-y-12"
                     >
-                        <span className="inline-block bg-yellow-300 text-blue-900 font-semibold px-4 py-2 rounded-xl shadow-md text-sm">ارسال رایگان برای سفارش‌های امروز</span>
+                        <span className="w-full text-center inline-block bg-yellow-300 text-blue-900 font-semibold px-4 py-2 rounded-xl shadow-md text-sm">ارسال رایگان برای سفارش‌های امروز</span>
 
 
-                        <h1 className="text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+                        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
                             یک خرید
                             <span className="text-yellow-300"> راحت، سریع و امن </span>
                             را تجربه کنید
@@ -63,13 +63,13 @@ export default function HomePage() {
                         </p>
 
 
-                        <div className="flex gap-4 mt-6">
-                            <Link to="/shop" className="bg-white text-blue-800 px-8 py-4 rounded-xl font-semibold shadow-xl hover:bg-blue-100 transition-all">
+                        <div className="flex justify-between sm:justify-start gap-4 mt-6">
+                            <Link to="/shop" className="bg-white text-center flex-1 text-blue-800 px-6 py-3 rounded-xl font-semibold shadow-xl hover:bg-blue-100 transition-all">
                                 مشاهده محصولات
                             </Link>
 
 
-                            <Link to="/offers" className="bg-yellow-300 text-blue-900 px-8 py-4 rounded-xl font-semibold shadow-xl hover:bg-yellow-400 transition-all">
+                            <Link to="/offers" className="bg-yellow-300 text-center flex-1 text-blue-900 px-6 py-3 rounded-xl font-semibold shadow-xl hover:bg-yellow-400 transition-all">
                                 تخفیف‌های ویژه
                             </Link>
                         </div>
