@@ -1,5 +1,3 @@
-// ./slices/Cartslice.js  (این فایل اصلی است که در store.js ایمپورت شده)
-
 import { createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 

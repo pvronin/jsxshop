@@ -129,7 +129,7 @@ export default function Header() {
 
                             {/* نتایج زنده */}
                             {searchResults.length > 0 && (
-                                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-2xl border overflow-hidden z-[60] min-w-[220px]">
+                                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-2xl overflow-hidden z-[60] min-w-[220px]">
                                     {searchResults.map(product => (
                                         <Link
                                             key={product.id}

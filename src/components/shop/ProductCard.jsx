@@ -1,15 +1,9 @@
 // components/shop/ProductCard.jsx
-import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../../store/slices/Cartslice";
 import { Link } from "react-router-dom";
+import AddToCartBtn from "../AddToCartBtn";
 
 export default function ProductCard({ item }) {
-    const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart.cart);
-    const cartItem = cart?.find((c) => c.id === item.id);
-
     return (
-
         <div className="flex flex-col relative justify-between bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border border-gray-200 overflow-hidden">
             <div className="absolute top-2 right-2 bg-blue-500 rounded-lg p-2 flex items-center justify-center text-sm text-white font-bold">
                 {item.discountPercentage}%
@@ -28,9 +22,6 @@ export default function ProductCard({ item }) {
                 <p className="text-sm text-emerald-600 font-medium mb-3">
                     {item.brand}
                 </p>
-                <p className="text-sm text-gray-500 mb-4 line-clamp-2">
-                    {item.description}
-                </p>
 
                 <div className="flex justify-between items-center mb-5 pt-3 border-t border-gray-100">
                     <span className="text-2xl font-black text-red-600">
@@ -46,34 +37,8 @@ export default function ProductCard({ item }) {
                     </div>
                 </div>
 
-                {cartItem ? (
-                    <div className="h-15 flex justify-between items-center gap-4 bg-gray-100 p-3 rounded-full border border-gray-200">
-                        <button
-                            onClick={() => dispatch(decrement({ id: item.id }))}
-                            className="bg-blue-500 hover:bg-blue-600 text-white w-11 h-11 rounded-full transition duration-150 shadow-md"
-                        >
-                            -
-                        </button>
-                        <span className="font-black text-xl text-gray-800">
-                            {cartItem.qty}
-                        </span>
-                        <button
-                            onClick={() => dispatch(increment({ id: item.id, name: item.title, price: item.price, image: item.thumbnail }))}
-                            className="bg-blue-600 hover:bg-blue-700 text-white w-11 h-11 rounded-full font-bold transition duration-150 shadow-md"
-                        >
-                            +
-                        </button>
-                    </div>
-                ) : (
-                    <button
-                        onClick={() => dispatch(increment({ id: item.id, name: item.title, price: item.price, image: item.thumbnail }))}
-                        className="w-full h-15 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl text-sm md:text-base font-bold transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-blue-200/50"
-                    >
-                        🛒 افزودن به سبد
-                    </button>
-                )}
+                <AddToCartBtn item={item} />
             </div>
         </div>
-
     );
 }

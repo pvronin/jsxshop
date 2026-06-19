@@ -10,6 +10,7 @@ import ProductCard from "../components/shop/ProductCard";
 import ShopPagination from "../components/shop/ShopPagination";
 import ShopSidebar from "../components/shop/ShopSidebar";
 import MobileSidebarWrapper from "../components/shop/MobileSidebarWrapper"; // ← ایمپورت جدید
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Shop() {
     const [currentpage, setCurrentpage] = useState(1);
@@ -114,16 +115,11 @@ export default function Shop() {
             </MobileSidebarWrapper>
 
             <div className="container mx-auto px-4">
-                <div className="text-center mb-16">
-                    <h1 className="text-3xl lg:text-5xl font-extrabold text-gray-900 mb-4">
-                        <span className="text-emerald-600">🛍️ فروشگاه</span> محصولات ما
-                    </h1>
-                    <p className="text-base text-gray-500">محصولات منتخب از DummyJSON API با بهترین کیفیت و قیمت</p>
-                </div>
 
-                <div className="flex flex-col lg:flex-row gap-10">
+
+                <div className="flex flex-col lg:flex-row gap-10 items-start">
                     {/* سایدبار دسکتاپ */}
-                    <div className="hidden lg:block lg:w-1/4">
+                    <div className="hidden lg:block sticky top-18 lg:w-1/4">
                         <ShopSidebar
                             filters={filters}
                             updateFilter={updateFilter}
@@ -143,9 +139,7 @@ export default function Shop() {
                         />
 
                         {isLoading ? (
-                            <div className="flex justify-center items-center h-64">
-                                <div className="text-3xl text-gray-600">در حال بارگذاری محصولات...</div>
-                            </div>
+                            <LoadingSpinner />
                         ) : (
                             <>
                                 {currentProducts.length > 0 ? (
@@ -153,7 +147,7 @@ export default function Shop() {
                                         initial={{ opacity: 0, y: 60 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5 }}
-                                        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 min-h-auto"
+                                        className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 min-h-auto"
                                     >
                                         {currentProducts.map((item) => (
                                             <ProductCard key={item.id} item={item} />

@@ -7,16 +7,16 @@ export default function ShopHeader({
     shownCount,
     sortBy,
     updateSort,
-    onMenuClick, // ← تغییر نام برای وضوح
+    onMenuClick,
     showSidebarMobile
 }) {
     return (
-        <div className="relative mb-8 overflow-hidden">
+        <div className="relative mb-8 overflow-hidden shadow-md rounded-2xl">
             {/* پس‌زمینه شیشه‌ای */}
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 via-blue-400/5 to-purple-400/10 backdrop-blur-xl rounded-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 via-blue-400/5 to-purple-400/10 backdrop-blur-xl"></div>
 
             {/* محتوا */}
-            <div className="relative bg-white/60 backdrop-blur-md border border-white/30 shadow-xl rounded-2xl p-5">
+            <div className="relative bg-white/60 backdrop-blur-md border border-white/30 rounded-2xl p-5">
                 <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
 
                     {/* بخش چپ: آمار */}
@@ -39,7 +39,7 @@ export default function ShopHeader({
                     {/* بخش راست: مرتب‌سازی و فیلتر */}
                     <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                         {/* برچسب مرتب‌سازی */}
-                        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-white/50 rounded-full border border-gray-200/50">
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/50 rounded-full border border-gray-200/50">
                             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
                             </svg>

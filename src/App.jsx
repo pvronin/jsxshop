@@ -34,9 +34,6 @@ function App() {
                     <Route path="/privacy_policy" element={<Privacy_policy />} />
                     <Route path="/test" element={<Test />} />
 
-
-
-              // مسیر را اینگونه اصلاح کنید تا تداخلی با صفحه اصلی شاپ نداشته باشد
                     <Route path="/shop">
                         <Route index element={<Shop />} />
                         <Route path="products/:id" element={<Product />} />
