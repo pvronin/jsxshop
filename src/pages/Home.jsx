@@ -1,16 +1,13 @@
 import { Link } from "react-router-dom";
-import { FaStar, FaShoppingCart, FaTruck, FaShieldAlt, FaBolt, FaArrowRight, FaArrowLeft, FaRegHeart, FaSearch, FaPhone, FaEnvelope } from "react-icons/fa";
+import { FaStar, FaShoppingCart, FaTruck, FaShieldAlt, FaBolt, FaRegHeart, FaSearch, FaPhone, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
 import myPhoto from "../assets/undraw_shopping-bags_nfsf.png";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Pagination, Autoplay, Navigation } from 'swiper/modules';
+
 import ProductCard from "../components/shop/ProductCard";
+import Carousel from "../components/Carousel";
 
 export default function HomePage() {
     const [products, setProducts] = useState([]);
@@ -64,12 +61,12 @@ export default function HomePage() {
 
 
                         <div className="flex justify-between sm:justify-start gap-4 mt-6">
-                            <Link to="/shop" className="bg-white text-center flex-1 text-blue-800 px-6 py-3 rounded-xl font-semibold shadow-xl hover:bg-blue-100 transition-all">
+                            <Link to="/shop" className="bg-white text-center text-sm md:text-lg flex-1 text-blue-800 px-6 py-3 rounded-xl font-semibold shadow-xl hover:bg-blue-100 transition-all">
                                 محصولات
                             </Link>
 
 
-                            <Link to="/offers" className="bg-yellow-300 text-center flex-1 text-blue-900 px-6 py-3 rounded-xl font-semibold shadow-xl hover:bg-yellow-400 transition-all">
+                            <Link to="/offers" className="bg-yellow-300 text-sm md:text-lg text-center flex-1 text-blue-900 px-6 py-3 rounded-xl font-semibold shadow-xl hover:bg-yellow-400 transition-all">
                                 تخفیف‌های ویژه
                             </Link>
                         </div>
@@ -172,76 +169,7 @@ export default function HomePage() {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                         </div>
                     ) : (
-                        <div className="relative">
-                            <button
-                                className="swiper-prev-btn w-12 h-12 z-10 absolute top-1/2 -translate-y-1/2 right-0 p-3 rounded-full bg-white/40 text-slate-800 shadow-lg hover:bg-slate-100 transition-all mr-2 hidden md:flex items-center justify-center border border-slate-200"
-                            >
-                                <FaArrowRight />
-                            </button>
-
-                            <button
-                                className="swiper-next-btn w-12 h-12 z-10 absolute top-1/2 -translate-y-1/2 left-0 p-3 rounded-full bg-white/40 text-slate-800 shadow-lg hover:bg-slate-100 transition-all ml-2 hidden md:flex items-center justify-center border border-slate-200"
-                            >
-                                <FaArrowLeft />
-                            </button>
-
-                            <Swiper
-                                modules={[Pagination, Autoplay, Navigation]}
-                                spaceBetween={20}
-                                loop={true}
-                                centeredSlides={false}
-                                autoplay={{ delay: 5000, disableOnInteraction: false }}
-                                speed={800}
-                                pagination={{
-                                    clickable: true,
-                                    el: '.swiper-pagination',
-                                    renderBullet: function (index, className) {
-                                        return '<span class="' + className + '">' + '</span>';
-                                    },
-                                }}
-                                navigation={{
-                                    prevEl: '.swiper-prev-btn',
-                                    nextEl: '.swiper-next-btn',
-                                }}
-                                slidesPerGroup={1}
-                                breakpoints={{
-                                    640: {
-                                        slidesPerView: 2,
-                                        spaceBetween: 10,
-                                        slidesPerGroup: 2,
-                                    },
-                                    1024: {
-                                        slidesPerView: 3
-                                    },
-                                    1280: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 30,
-                                        slidesPerGroup: 4,
-                                    },
-                                }}
-
-                                className="w-full h-auto !p-6"
-                            >
-                                {products.map((product, index) => (
-                                    <SwiperSlide key={product.id} className="pb-12">
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                            viewport={{ once: true, amount: 0.3 }}
-                                            transition={{
-                                                duration: 0.5,
-                                                delay: (index % 4) * 0.1
-                                            }}
-                                        >
-                                            <ProductCard item={product} />
-                                        </motion.div>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-
-                            {/* Pagination سفارشی */}
-                            <div className="swiper-pagination flex justify-center gap-2"></div>
-                        </div>
+                        <Carousel items={products} id="featured-products" />
                     )}
                 </div>
             </section>
@@ -268,76 +196,7 @@ export default function HomePage() {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                         </div>
                     ) : (
-                        <div className="relative">
-                            <button
-                                className="swiper-prev-btn w-12 h-12 z-10 absolute top-1/2 -translate-y-1/2 right-0 p-3 rounded-full bg-white/40 text-slate-800 shadow-lg hover:bg-slate-100 transition-all mr-2 hidden md:flex items-center justify-center border border-slate-200"
-                            >
-                                <FaArrowRight />
-                            </button>
-
-                            <button
-                                className="swiper-next-btn w-12 h-12 z-10 absolute top-1/2 -translate-y-1/2 left-0 p-3 rounded-full bg-white/40 text-slate-800 shadow-lg hover:bg-slate-100 transition-all ml-2 hidden md:flex items-center justify-center border border-slate-200"
-                            >
-                                <FaArrowLeft />
-                            </button>
-
-                            <Swiper
-                                modules={[Pagination, Autoplay, Navigation]}
-                                spaceBetween={30}
-                                loop={true}
-                                centeredSlides={false}
-                                autoplay={{ delay: 5000, disableOnInteraction: false }}
-                                speed={800}
-                                pagination={{
-                                    clickable: true,
-                                    el: '.swiper-pagination',
-                                    renderBullet: function (index, className) {
-                                        return '<span class="' + className + '">' + '</span>';
-                                    },
-                                }}
-                                navigation={{
-                                    prevEl: '.swiper-prev-btn',
-                                    nextEl: '.swiper-next-btn',
-                                }}
-                                slidesPerGroup={1} // پیش‌فرض برای موبایل
-                                breakpoints={{
-                                    640: {
-                                        slidesPerView: 2,
-                                        spaceBetween: 20,
-                                        slidesPerGroup: 2,
-                                    },
-                                    1024: {
-                                        slidesPerView: 3
-                                    },
-                                    1280: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 30,
-                                        slidesPerGroup: 4,
-                                    },
-                                }}
-
-                                className="w-full h-auto !p-6"
-                            >
-                                {products.map((product, index) => (
-                                    <SwiperSlide key={product.id} className="pb-12">
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                            viewport={{ once: true, amount: 0.3 }}
-                                            transition={{
-                                                duration: 0.5,
-                                                delay: (index % 4) * 0.1
-                                            }}
-                                        >
-                                            <ProductCard item={product} />
-                                        </motion.div>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-
-                            {/* Pagination سفارشی */}
-                            <div className="swiper-pagination flex justify-center gap-2"></div>
-                        </div>
+                        <Carousel items={products} id="new-products" />
                     )}
                 </div>
             </section>

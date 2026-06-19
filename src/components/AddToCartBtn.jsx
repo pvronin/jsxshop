@@ -1,6 +1,8 @@
 import { decrement, increment } from "../store/slices/Cartslice";
 import { useDispatch, useSelector } from "react-redux";
 import { TiMinus, TiPlus } from "react-icons/ti";
+import { MdAddShoppingCart } from "react-icons/md";
+
 
 const AddToCartBtn = ({ item }) => {
     const dispatch = useDispatch();
@@ -41,9 +43,9 @@ const AddToCartBtn = ({ item }) => {
                 stock: item.stock,
                 discountPercentage: item.discountPercentage
             }))}
-            className="w-full h-15 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl text-sm md:text-base font-bold transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-blue-200/50"
+            className="w-full flex justify-center items-center gap-3 h-15 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl text-sm md:text-base font-bold transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-blue-200/50"
         >
-            🛒 افزودن به سبد
+            افزودن به سبد<MdAddShoppingCart  size={18}/>
         </button>
     );
 };
