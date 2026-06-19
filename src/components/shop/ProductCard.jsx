@@ -1,6 +1,7 @@
 // components/shop/ProductCard.jsx
 import { Link } from "react-router-dom";
 import AddToCartBtn from "../AddToCartBtn";
+import { FaStar } from "react-icons/fa";
 
 export default function ProductCard({ item }) {
     return (
@@ -28,11 +29,8 @@ export default function ProductCard({ item }) {
                         ${item.price}
                     </span>
                     <div className="text-sm font-medium text-gray-600 flex flex-col items-end">
-                        <span className='text-yellow-500'>
-                            {`⭐ ${item.rating}`}
-                        </span>
-                        <span className={item.stock > 10 ? 'text-green-500' : 'text-orange-500'}>
-                            {`📦 موجود: ${item.stock}`}
+                        <span className='flex items-center gap-2 text-yellow-500'>
+                            {item.rating} <FaStar className="-mt-1" />
                         </span>
                     </div>
                 </div>
