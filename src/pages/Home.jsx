@@ -40,7 +40,7 @@ export default function HomePage() {
     return (
         <div className="flex flex-col w-full overflow-x-hidden">
             {/* هدر اصلی با طراحی مدرن */}
-            <section className="relative py-28 px-6 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 text-white">
+            <section className="relative py-10 lg:py-28 px-6 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 text-white">
                 <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, x: 80 }}
@@ -51,7 +51,7 @@ export default function HomePage() {
                         <span className="w-full text-center inline-block bg-yellow-300 text-blue-900 font-semibold px-4 py-2 rounded-xl shadow-md text-sm">ارسال رایگان برای سفارش‌های امروز</span>
 
 
-                        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+                        <h1 className="text-3xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
                             یک خرید
                             <span className="text-yellow-300"> راحت، سریع و امن </span>
                             را تجربه کنید
@@ -65,7 +65,7 @@ export default function HomePage() {
 
                         <div className="flex justify-between sm:justify-start gap-4 mt-6">
                             <Link to="/shop" className="bg-white text-center flex-1 text-blue-800 px-6 py-3 rounded-xl font-semibold shadow-xl hover:bg-blue-100 transition-all">
-                                مشاهده محصولات
+                                محصولات
                             </Link>
 
 
@@ -89,8 +89,8 @@ export default function HomePage() {
 
             {/* بنر تبلیغاتی */}
             <section className="bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900 py-4 text-center font-bold text-lg shadow-lg">
-                <div className="container mx-auto flex items-center justify-center gap-3 animate-pulse">
-                    <FaBolt className="text-xl" />
+                <div className="container mx-auto text-sm md:text-xl flex items-center justify-center gap-3 animate-pulse">
+                    <FaBolt />
                     <span>فقط امروز: خرید بالای 200 هزار تومان - ارسال رایگان!</span>
                 </div>
             </section>
@@ -107,7 +107,7 @@ export default function HomePage() {
                         <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
                             چرا ما را انتخاب می‌کنید؟
                         </h2>
-                        <p className="text-slate-600 max-w-2xl mx-auto">
+                        <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto">
                             ما بهترین خدمات را برای رضایت شما ارائه می‌دهیم
                         </p>
                     </motion.div>
@@ -151,20 +151,19 @@ export default function HomePage() {
             </section>
 
             {/* محصولات ویژه */}
-            <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
+            <section className="py-18 px-6 bg-slate-100">
                 <div className="container mx-auto">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="text-center mb-12 md:mb-16"
+                        className="text-center mb-10"
                     >
-                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 mb-3 md:mb-4">
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
                             محصولات ویژه
                         </h2>
-                        <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto px-4">
-                            منتخبی از بهترین محصولات با بیشترین تخفیف
+                        <p className="text-slate-600 max-w-2xl mx-auto">
+                            محصولات محبوب خاص با خریدار زیاد
                         </p>
                     </motion.div>
 
@@ -173,81 +172,77 @@ export default function HomePage() {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                         </div>
                     ) : (
-                        <>
-                            {/* حالت دسکتاپ - گرید */}
-                            <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6">
-                                {featuredProducts.map((product, index) => (
-                                    <motion.div
-                                        key={product.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.6, delay: index * 0.12 }}
-                                        whileHover={{ y: -5 }}
-                                    >
-                                        <ProductCard item={product} />
-                                    </motion.div>
+                        <div className="relative">
+                            <button
+                                className="swiper-prev-btn w-12 h-12 z-10 absolute top-1/2 -translate-y-1/2 right-0 p-3 rounded-full bg-white/40 text-slate-800 shadow-lg hover:bg-slate-100 transition-all mr-2 hidden md:flex items-center justify-center border border-slate-200"
+                            >
+                                <FaArrowRight />
+                            </button>
+
+                            <button
+                                className="swiper-next-btn w-12 h-12 z-10 absolute top-1/2 -translate-y-1/2 left-0 p-3 rounded-full bg-white/40 text-slate-800 shadow-lg hover:bg-slate-100 transition-all ml-2 hidden md:flex items-center justify-center border border-slate-200"
+                            >
+                                <FaArrowLeft />
+                            </button>
+
+                            <Swiper
+                                modules={[Pagination, Autoplay, Navigation]}
+                                spaceBetween={20}
+                                loop={true}
+                                centeredSlides={false}
+                                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                                speed={800}
+                                pagination={{
+                                    clickable: true,
+                                    el: '.swiper-pagination',
+                                    renderBullet: function (index, className) {
+                                        return '<span class="' + className + '">' + '</span>';
+                                    },
+                                }}
+                                navigation={{
+                                    prevEl: '.swiper-prev-btn',
+                                    nextEl: '.swiper-next-btn',
+                                }}
+                                slidesPerGroup={1}
+                                breakpoints={{
+                                    640: {
+                                        slidesPerView: 2,
+                                        spaceBetween: 10,
+                                        slidesPerGroup: 2,
+                                    },
+                                    1024: {
+                                        slidesPerView: 3
+                                    },
+                                    1280: {
+                                        slidesPerView: 4,
+                                        spaceBetween: 30,
+                                        slidesPerGroup: 4,
+                                    },
+                                }}
+
+                                className="w-full h-auto !p-6"
+                            >
+                                {products.map((product, index) => (
+                                    <SwiperSlide key={product.id} className="pb-12">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                            viewport={{ once: true, amount: 0.3 }}
+                                            transition={{
+                                                duration: 0.5,
+                                                delay: (index % 4) * 0.1
+                                            }}
+                                        >
+                                            <ProductCard item={product} />
+                                        </motion.div>
+                                    </SwiperSlide>
                                 ))}
-                            </div>
+                            </Swiper>
 
-                            {/* حالت موبایل - اسلایدر */}
-                            <div className="md:hidden px-2">
-                                <Swiper
-                                    modules={[Navigation, Pagination, Autoplay]}
-                                    spaceBetween={16}
-                                    slidesPerView={1.1}
-                                    centeredSlides={true}
-                                    loop={true}
-                                    autoplay={{
-                                        delay: 3000,
-                                        disableOnInteraction: false,
-                                    }}
-                                    pagination={{
-                                        clickable: true,
-                                        el: '.swiper-pagination-vip',
-                                        renderBullet: function (index, className) {
-                                            return '<span class="' + className + '">' + '</span>';
-                                        },
-                                    }}
-                                    navigation={false}
-                                    breakpoints={{
-                                        640: {
-                                            slidesPerView: 1.5,
-                                            spaceBetween: 20,
-                                        },
-                                        768: {
-                                            slidesPerView: 2,
-                                            spaceBetween: 24,
-                                        },
-                                    }}
-                                    className="pb-10"
-                                >
-                                    {featuredProducts.map((product) => (
-                                        <SwiperSlide key={product.id} className="pb-12">
-                                            <motion.div
-                                                initial={{ opacity: 0, scale: 0.9 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{ duration: 0.3 }}
-                                            >
-                                                <ProductCard item={product} />
-                                            </motion.div>
-                                        </SwiperSlide>
-                                    ))}
-                                    <div className="swiper-pagination-vip flex justify-center gap-4"></div>
-                                </Swiper>
-                            </div>
-                        </>
+                            {/* Pagination سفارشی */}
+                            <div className="swiper-pagination flex justify-center gap-2"></div>
+                        </div>
                     )}
-
-                    <div className="text-center mt-10 md:mt-12">
-                        <Link
-                            to="/shop"
-                            className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg md:rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
-                        >
-                            مشاهده همه محصولات
-                            <FaArrowLeft className="text-sm md:text-base" />
-                        </Link>
-                    </div>
                 </div>
             </section>
 
@@ -309,20 +304,19 @@ export default function HomePage() {
                                     640: {
                                         slidesPerView: 2,
                                         spaceBetween: 20,
-                                        slidesPerGroup: 1 // تا 768px یکی یکی
-                                    },
-                                    768: {
-                                        slidesPerView: 3,
-                                        spaceBetween: 30,
-                                        slidesPerGroup: 2 // از 768px دوتا دوتا
+                                        slidesPerGroup: 2,
                                     },
                                     1024: {
+                                        slidesPerView: 3
+                                    },
+                                    1280: {
                                         slidesPerView: 4,
                                         spaceBetween: 30,
-                                        slidesPerGroup: 2 // دوتا دوتا
+                                        slidesPerGroup: 4,
                                     },
                                 }}
-                                className="w-full h-auto !p-10"
+
+                                className="w-full h-auto !p-6"
                             >
                                 {products.map((product, index) => (
                                     <SwiperSlide key={product.id} className="pb-12">

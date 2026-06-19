@@ -15,7 +15,7 @@ export default function ProductCard({ item }) {
                     className="w-full h-48 object-contain p-4 bg-gray-50 border-b border-gray-100"
                 />
             </Link>
-            <div className="p-6">
+            <div className="p-5">
                 <h3 className="font-extrabold md:text-xl text-gray-900 mb-2 truncate">
                     {item.title}
                 </h3>
@@ -23,8 +23,8 @@ export default function ProductCard({ item }) {
                     {item.brand}
                 </p>
 
-                <div className="flex justify-between items-center mb-5 pt-3 border-t border-gray-100">
-                    <span className="text-2xl font-black text-red-600">
+                <div className="flex justify-between items-center mb-4 pt-3 border-t border-gray-100">
+                    <span className="text-lg md:text-xl font-black text-red-600">
                         ${item.price}
                     </span>
                     <div className="text-sm font-medium text-gray-600 flex flex-col items-end">
