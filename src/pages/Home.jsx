@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 import ProductCard from "../components/shop/ProductCard";
 import Carousel from "../components/Carousel";
+import { toast } from "sonner";
 
 export default function HomePage() {
     const [products, setProducts] = useState([]);
@@ -32,6 +33,13 @@ export default function HomePage() {
 
     useEffect(() => {
         fetchProducts();
+        toast.warning(
+            "⚠️ به علت خارجی بودن API، ممکنه نیاز به VPN برای کارکرد درست باشه. چون API دست‌ساز خودم نیست، ارائه‌ی خیلی از فیچرها ممکن نبود.\n\n⚠️ Since this API is external and not built by me, providing many features wasn't possible.",
+            {
+                duration: 10000,
+                closeButton: true
+            }
+        );
     }, []);
 
     return (
