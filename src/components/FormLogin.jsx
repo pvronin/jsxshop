@@ -4,7 +4,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../store/slices/userSlice";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+
 
 export function FormLogin({ onToggle }) {
     const [showPassword, setShowPassword] = useState(false);
@@ -64,9 +65,7 @@ export function FormLogin({ onToggle }) {
                 // فرض کنید fullUser را از API دریافت کرده‌اید
                 // const userName = fullUser.firstName || "کاربر گرامی";
 
-                toast.success(`خوش آمدید`, {
-                    icon: '✅',
-                });
+                toast.success(`خوش آمدید`);
 
                 navigate("/");
             } catch (error) {
