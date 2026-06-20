@@ -5,6 +5,7 @@ import { RiArrowRightWideFill } from "react-icons/ri";
 
 import { useEffect, useState, useRef } from "react";
 import { fetchCategories } from "../store/slices/CategorySlice";
+import Logo from "./Logo";
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -63,7 +64,7 @@ export default function Header() {
 
     const location = useLocation();
     const cart = useSelector((state) => state.cart.cart);
-    const { user, isAuthenticated } = useSelector((state) => state.user);
+    const { isAuthenticated } = useSelector((state) => state.user);
     const totalQuantity = cart.reduce((total, item) => total + item.qty, 0);
 
     return (
@@ -75,41 +76,56 @@ export default function Header() {
 
                         {/* Logo & Shop Nav */}
                         <div className="flex items-center gap-2 md:gap-5">
-                            <NavLink to="/" className="flex items-center gap-2 text-white font-bold shrink-0">
+                            {/* <NavLink to="/" className="flex items-center gap-2 text-white font-bold shrink-0">
                                 <div className="bg-white/20 p-1.5 rounded-lg">
                                     <FaStore className="text-sm md:text-lg" />
                                 </div>
                                 <span className="hidden lg:inline-block text-sm">فروشگاه آنلاین</span>
-                            </NavLink>
+                            </NavLink> */}
+                            <Logo />
 
                             {/* منوی فروشگاه با کلیک و هاور */}
                             <div className="relative group ml-1 md:ml-2">
                                 <button
                                     onClick={() => setShowMegamenu(!showMegamenu)}
-                                    className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] md:text-sm font-medium transition-all ${location.pathname.includes('shop') ? 'bg-white text-blue-600' : 'text-blue-100 hover:bg-white/20'
+                                    className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${location.pathname.includes('shop')
+                                            ? 'bg-white text-blue-600 shadow-md'
+                                            : 'text-blue-100 hover:bg-white/20 hover:text-white'
                                         }`}
                                 >
-                                    <FaStore className="md:text-lg" />
+                                    <FaStore className="text-base md:text-lg" />
                                     <span>فروشگاه</span>
                                 </button>
 
-                                {/* مگامنو اصلاح شده */}
+                                {/* مگامنو */}
                                 <div className={`
-                                    absolute top-full right-0 mt-1 w-48 md:w-100 bg-white shadow-2xl rounded-xl p-2 md:p-3 transition-all duration-300 grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2 z-50
-                                    md:group-hover:opacity-100 md:group-hover:visible md:group-hover:translate-y-0
-                                    ${showMegamenu ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"}
-                                `}>
-                                    {categories?.map((cat, index) => (
-                                        <Link
-                                            key={index}
-                                            to={`/shop/${cat}`}
-                                            onClick={() => setShowMegamenu(false)}
-                                            className="flex items-center gap-2 text-blue-700 text-[10px] md:text-xs hover:bg-blue-50 p-2 rounded-lg"
-                                        >
-                                            <FaCircle className="text-[4px] text-blue-400" />
-                                            {cat}
-                                        </Link>
-                                    ))}
+        absolute top-full right-0 mt-2 w-68 md:w-86 bg-white rounded-2xl shadow-2xl p-3 z-50
+        transition-all duration-300 origin-top-right
+        md:group-hover:opacity-100 md:group-hover:visible md:group-hover:scale-100
+        ${showMegamenu ? "opacity-100 visible scale-100" : "opacity-0 invisible scale-95"}
+    `}>
+                                    {/* هدر مگامنو */}
+                                    <div className="flex items-center justify-between border-b border-gray-100 pb-2 mb-2">
+                                        <span className="font-bold text-gray-400">دسته‌بندی‌ها</span>
+                                        <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+                                            {categories?.length || 0}
+                                        </span>
+                                    </div>
+
+                                    {/* لیست دسته‌بندی‌ها */}
+                                    <div className="grid grid-cols-2 gap-1">
+                                        {categories?.map((cat, index) => (
+                                            <Link
+                                                key={index}
+                                                to={`/shop/${cat}`}
+                                                onClick={() => setShowMegamenu(false)}
+                                                className="flex items-center gap-2 text-[10px] md:text-xs text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2.5 py-2 rounded-lg transition-all duration-200"
+                                            >
+                                                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                                                <span>{cat}</span>
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +136,7 @@ export default function Header() {
                                 <input
                                     type="text"
                                     placeholder="جستجو ..."
-                                    className="w-full bg-white/10 border border-blue-400/20 text-white placeholder-blue-200 text-[10px] md:text-sm rounded-lg py-1.5 px-7 md:px-10 focus:bg-white focus:text-blue-900 focus:outline-none transition-all"
+                                    className="w-full bg-white/10 border border-blue-400/20 text-white placeholder-blue-200 text-[10px] md:text-sm rounded-lg py-2 px-7 md:px-10 focus:bg-white focus:text-blue-900 focus:outline-none transition-all"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
@@ -129,7 +145,7 @@ export default function Header() {
 
                             {/* نتایج زنده */}
                             {searchResults.length > 0 && (
-                                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-2xl overflow-hidden z-[60] min-w-[220px]">
+                                <div className="absolute top-full left-0 w-full mt-2 bg-white rounded-lg shadow-2xl overflow-hidden z-[60] min-w-[220px]">
                                     {searchResults.map(product => (
                                         <Link
                                             key={product.id}
@@ -140,7 +156,7 @@ export default function Header() {
                                             <div className="flex items-center gap-2">
                                                 <img src={product.thumbnail} alt="" className="w-8 h-8 object-cover rounded" />
                                                 <div className="flex flex-col gap-2">
-                                                    <span className="text-xs md:text-xs font-medium text-gray-800 line-clamp-1">{product.title}</span>
+                                                    <span className="text-xs md:text-sm font-medium text-gray-800 line-clamp-1">{product.title}</span>
                                                     <span className="text-[9px] md:text-xs text-blue-600 font-bold">${product.price}</span>
                                                 </div>
                                             </div>

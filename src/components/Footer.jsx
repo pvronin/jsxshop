@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaStore, FaInstagram, FaTwitter, FaFacebookF, FaTelegram, FaWhatsapp } from 'react-icons/fa';
+import Logo from './Logo';
 
 // 💡 یک کامپوننت کمکی برای لینک‌های فوتر تا کد تمیزتر باشد
 const FooterLink = ({ to, children }) => (
@@ -21,13 +22,7 @@ export default function Footer() {
 
                     {/* ستون اول: لوگو و توضیحات */}
                     <div className="flex flex-col gap-4">
-                        <Link to="/" className="flex items-center gap-3 text-white text-2xl font-bold group">
-                            {/* 💡 استفاده از استایل لوگوی هدر */}
-                            <div className="bg-blue-600/50 p-2 rounded-xl group-hover:bg-blue-500/50 transition-colors">
-                                <FaStore className="text-white text-xl" />
-                            </div>
-                            <span className="text-xl">فروشگاه آنلاین</span>
-                        </Link>
+                        <Logo size='xl' />
                         <p className="text-slate-400 text-sm leading-relaxed">
                             بهترین محصولات را با بهترین کیفیت و قیمت از ما بخواهید. ما به رضایت شما متعهدیم.
                         </p>

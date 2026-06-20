@@ -79,7 +79,10 @@ export default function Shop() {
     const startIndex = (currentpage - 1) * limitproduct;
     const currentProducts = data?.slice(startIndex, startIndex + limitproduct) || [];
 
-    const handlePageChange = (page) => setCurrentpage(page);
+    const handlePageChange = (page) => {
+        setCurrentpage(page);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     const updateFilter = (key, value) => {
         setFilters((prev) => ({ ...prev, [key]: value }));
@@ -100,7 +103,7 @@ export default function Shop() {
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">خطا: {error.message}</div>;
 
     return (
-        <div className="min-h-screen bg-gray-100 py-10">
+        <div className="min-h-screen bg-gray-100 py-10 ">
             {/* سایدبار موبایل با Wrapper جدید */}
             <MobileSidebarWrapper
                 isOpen={showSidebarMobile}
@@ -128,7 +131,7 @@ export default function Shop() {
                     </div>
 
                     {/* لیست محصولات */}
-                    <div className="lg:w-3/4">
+                    <div className="w-full lg:w-3/4">
                         <ShopHeader
                             totalProducts={data ? data.length : 0}
                             shownCount={Math.min(limitproduct, currentProducts.length)}
