@@ -1,5 +1,6 @@
 // components/common/Logo.jsx
 import { Link } from "react-router-dom";
+import logo from "../assets/Logo.png";
 
 export default function Logo({ className = "", size = "md", withText = false }) {
     const sizes = {
@@ -10,11 +11,11 @@ export default function Logo({ className = "", size = "md", withText = false }) 
     };
 
     return (
-        <Link to="/" className={`flex items-center gap-2  ${className}`}>
+        <Link to="/" className={`flex items-center gap-2 ${className}`}>
             <img
-                src="/src/assets/logo.png"  // مسیر لوگو
+                src={logo}
                 alt="لوگو فروشگاه"
-                className={`${sizes[size]} object-contain text-amber-400`}
+                className={`${sizes[size]} object-contain`}
             />
             {withText && (
                 <span className={`font-extrabold ${size === 'xl' ? 'text-3xl' : 'text-2xl'}`}>

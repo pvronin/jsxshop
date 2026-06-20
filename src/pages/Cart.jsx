@@ -37,7 +37,7 @@ export default function Cart() {
                 </h1>
 
                 {cart?.length > 0 ? (
-                    <div className="flex flex-col lg:flex-row gap-8">
+                    <div className="flex flex-col xl:flex-row gap-8">
                         {/* Cart Items */}
                         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5 lg:w-2/3">
                             {cart.map((item) => (
@@ -46,7 +46,7 @@ export default function Cart() {
                         </div>
 
                         {/* Order Summary */}
-                        <div className="lg:w-1/3">
+                        <div className="xl:w-1/3">
                             <div className="bg-white rounded-2xl shadow-xl p-7 sticky top-10 border border-gray-200">
                                 <h2 className="text-lg font-bold text-gray-800 pb-4">
                                     خلاصه سفارش
