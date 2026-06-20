@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+
 
 const initialState = {
     cart: JSON.parse(localStorage.getItem("cart")) || [],
@@ -27,9 +28,7 @@ const cartSlice = createSlice({
                     state.cart.push({ ...action.payload, qty: 1 });
                 }
             }
-         toast.success(`به سبد افزوده شد`, {
-                    icon: '✅',
-                });
+            toast.success("محصول به سبد افزوده شد")
         },
         decrement(state, action) {
             const itemId = action.payload.id;
