@@ -1,200 +1,259 @@
 import { useDispatch, useSelector } from "react-redux";
+
+
+import {
+    FaEnvelope,
+    FaUser,
+    FaMapMarkerAlt,
+    FaKey,
+    FaTag,
+    FaBoxOpen,
+    FaShoppingCart,
+    FaHeart,
+    FaSignOutAlt,
+    FaCity,
+    FaBuilding,
+    FaCreditCard,
+    FaUserTag,
+    FaHome,
+    FaPhone,
+    FaWallet,
+    FaCalendarAlt,
+    FaVenusMars,
+    FaIdCard
+} from "react-icons/fa";
+import { motion } from "framer-motion";
+import { toast } from "sonner";
 import { logout } from "../store/slices/userSlice";
-// 💡 آیکون‌های اضافی برای زیبایی و کاربرد
-import { FaEnvelope, FaUser, FaPhoneAlt, FaMapMarkerAlt, FaKey, FaTag, FaBoxOpen, FaShoppingCart, FaHeart } from "react-icons/fa";
 
 export function Profile() {
     const { user, isAuthenticated } = useSelector((state) => state.user);
     const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart.cart);
+    const totalItems = cart.reduce((total, item) => total + item.qty, 0);
 
-    // 💡 شبیه سازی داده های آماری (چون در Redux وجود ندارند)
-    const stats = [
-        { count: 12, label: "تعداد سفارش", color: "purple" },
-        { count: 3, label: "سبد خرید فعال", color: "blue" },
-        { count: 45, label: "محصول مورد علاقه", color: "yellow" },
-    ];
+
+    const handleLogout = () => {
+        dispatch(logout());
+        toast.success('با موفقیت خارج شدید');
+    };
 
     if (!isAuthenticated || !user) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                <div className="bg-white/70 backdrop-blur-xl p-10 rounded-3xl shadow-2xl border border-white/30 text-center">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="min-h-screen bg-gray-50 flex items-center justify-center p-4"
+            >
+                <div className="bg-white p-10 rounded-3xl shadow-2xl text-center max-w-md">
+                    <div className="text-6xl mb-4">🔒</div>
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">لطفا وارد شوید</h2>
-                    <p className="text-gray-600">برای مشاهده پروفایل ابتدا وارد حساب خود شوید.</p>
+                    <p className="text-gray-600 mb-6">برای مشاهده پروفایل ابتدا وارد حساب خود شوید.</p>
+                    <a href="/login_register" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-all shadow-lg">
+                        ورود / ثبت‌نام
+                    </a>
                 </div>
-            </div>
+            </motion.div>
         );
     }
 
-    // 💡 تعیین تاریخ فرضی برای زمان پیوستن (برای مثال)
-    const joinDate = "فروردین ۱۴۰۲";
+    const userInfo = {
+        // اطلاعات پایه
+        firstName: user.firstName || "نامشخص",
+        lastName: user.lastName || "نامشخص",
+        email: user.email || "example@email.com",
+        username: user.username || "نامشخص",
+        phone: user.phone || "ثبت نشده",
+        gender: user.gender || "ثبت نشده",
+        age: user.age || "ثبت نشده",
+
+        // آدرس
+        address: user.address?.address || "ثبت نشده",
+        city: user.address?.city || "ثبت نشده",
+        postalCode: user.address?.postalCode || "ثبت نشده",
+
+        // بانک
+        cardNumber: user.bank?.cardNumber || "ثبت نشده",
+        iban: user.bank?.iban || "ثبت نشده",
+
+        // نقش
+        role: user.role || "کاربر عادی",
+    };
+
+    const stats = [
+        { count: 12, label: "تعداد سفارش", icon: FaBoxOpen, color: "purple" },
+        { count: totalItems, label: "سبد خرید فعال", icon: FaShoppingCart, color: "blue" },
+        { count: 45, label: "محصول مورد علاقه", icon: FaHeart, color: "red" },
+    ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 py-16">
-            <div className="container mx-auto px-6 max-w-5xl"> {/* 💡 max-w را کمی بزرگتر کردم */}
+        <div className="min-h-screen bg-gray-50 py-8 md:py-16">
+            <div className="container mx-auto px-4 md:px-6 max-w-5xl">
 
-                {/* کارت پروفایل */}
-                <div className="bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/40">
-
-                    {/* هدر */}
-                    <div className="flex flex-col md:flex-row justify-between items-center bg-gradient-to-r from-blue-600 to-indigo-700 p-10 text-white">
-                        <div className="flex items-center gap-6 mb-6 md:mb-0">
-
-                            {/* آواتار */}
-                            {/* 💡 اضافه کردن یک تصویر کوچک به آواتار (اگر user.image وجود داشته باشد) */}
-                            <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center text-3xl font-bold shadow-lg backdrop-blur-xl border border-white/40 overflow-hidden">
+                {/* هدر پروفایل */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 md:p-10 text-white mb-8 shadow-2xl"
+                >
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="flex items-center gap-6 w-full md:w-auto">
+                            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/20 flex items-center justify-center text-4xl md:text-5xl font-bold border-4 border-white/50 shadow-xl flex-shrink-0">
                                 {user.image ? (
-                                    <img src={user.image} alt="آواتار کاربر" className="w-full h-full object-cover" />
+                                    <img src={user.image} alt="آواتار" className="w-full h-full object-cover rounded-full" />
                                 ) : (
-                                    <>
-                                        {user.firstName?.charAt(0)}
-                                        {user.lastName?.charAt(0)}
-                                    </>
+                                    <span>{userInfo.firstName?.charAt(0)}{userInfo.lastName?.charAt(0)}</span>
                                 )}
                             </div>
-
                             <div>
-                                <h1 className="text-3xl font-extrabold tracking-wide">
-                                    {user.firstName} {user.lastName}
+                                <h1 className="text-2xl md:text-4xl font-extrabold">
+                                    {userInfo.firstName} {userInfo.lastName}
                                 </h1>
-                                <p className="text-blue-100 mt-1 text-sm">@{user.username}</p>
-                                <p className="text-blue-200 mt-2 text-xs font-light flex items-center gap-1">
-                                    <FaTag className="text-xs" />
-                                    <span>عضویت از: {joinDate}</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <button
-                                className="bg-red-500 text-white font-semibold px-6 py-3 rounded-xl shadow-lg
-                                hover:bg-red-600 transition-colors duration-200"
-                                onClick={() => dispatch(logout())}
-                            >
-                                <span className="flex items-center gap-2">
-                                    <FaKey />
-                                    خروج از حساب
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* 💡 بخش جدید: آمار سریع */}
-                    <div className="bg-white/90 p-8 border-b border-gray-200">
-                        <div className="grid grid-cols-3 gap-6">
-                            {stats.map((stat, index) => (
-                                <StatsBox key={index} {...stat} />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* بخش جزئیات */}
-                    <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
-
-                        {/* اطلاعات شخصی */}
-                        <div>
-                            <h3 className="text-2xl font-extrabold text-gray-800 mb-6 flex items-center gap-3 border-b pb-2 border-indigo-100">
-                                <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
-                                مشخصات فردی
-                            </h3>
-
-                            <div className="space-y-1">
-                                <ProfileItem label="نام" value={user.firstName} icon={FaUser} />
-                                <ProfileItem label="نام خانوادگی" value={user.lastName} icon={FaUser} />
-                                <ProfileItem label="ایمیل" value={user.email} icon={FaEnvelope} />
-                                <ProfileItem label="شماره تماس" value={user.phone} icon={FaPhoneAlt} />
-                                <ProfileItem label="نام کاربری" value={"@" + user.username} icon={FaKey} />
+                                <div className="flex flex-wrap items-center gap-3 mt-2 text-blue-100">
+                                    <span className="flex items-center gap-1 text-sm">
+                                        <FaUser className="text-xs" />
+                                        @{userInfo.username}
+                                    </span>
+                                    <span className="w-1 h-1 bg-blue-300 rounded-full"></span>
+                                    <span className="flex items-center gap-1 text-sm">
+                                        <FaEnvelope className="text-xs" />
+                                        {userInfo.email}
+                                    </span>
+                                    <span className="w-1 h-1 bg-blue-300 rounded-full"></span>
+                                    <span className="flex items-center gap-1 text-sm bg-white/20 px-3 py-1 rounded-full">
+                                        <FaUserTag className="text-xs" />
+                                        {userInfo.role}
+                                    </span>
+                                    <span className="flex items-center gap-1 text-sm bg-green-500/30 px-3 py-1 rounded-full">
+                                        <FaIdCard className="text-xs" />
+                                        تایید شده
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
-                        {/* اطلاعات حساب و آدرس */}
-                        <div>
-                            <h3 className="text-2xl font-extrabold text-gray-800 mb-6 flex items-center gap-3 border-b pb-2 border-indigo-100">
-                                <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-                                اطلاعات حساب و آدرس
-                            </h3>
-
-                            <div className="space-y-6">
-                                {/* کارت نقش */}
-                                <CardBox
-                                    title="نقش حساب کاربری"
-                                    value={user.role || "کاربر عمومی"}
-                                    color="blue"
-                                />
-
-                                {/* کارت آدرس */}
-                                <CardBox
-                                    title={<span className="flex items-center gap-2"><FaMapMarkerAlt /> آدرس ثبت شده</span>}
-                                    value={
-                                        <>
-                                            <p>{user?.address?.address || "آدرس ثبت نشده است"}</p>
-                                            <p className="mt-2 text-sm text-opacity-80">
-                                                شهر: {user?.address?.city || "-"} - کد پستی: {user?.address?.postalCode || "-"}
-                                            </p>
-                                        </>
-                                    }
-                                    color="green"
-                                />
-
-                                <CardBox
-                                    title="نوع حساب"
-                                    value={"حساب فعال"}
-                                    color="blue"
-                                />
-                            </div>
-                        </div>
-
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="bg-red-500/90 hover:bg-red-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-red-500/30 transition-all flex items-center gap-2 w-full md:w-auto justify-center"
+                            onClick={handleLogout}
+                        >
+                            <FaSignOutAlt />
+                            خروج از حساب
+                        </motion.button>
                     </div>
+                </motion.div>
 
+                {/* آمار سریع */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    {stats.map((stat, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{ y: -3 }}
+                            className={`bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border ${stat.color === 'blue' ? 'border-blue-100' :
+                                stat.color === 'purple' ? 'border-purple-100' :
+                                    'border-red-100'
+                                }`}
+                        >
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h4 className="text-2xl md:text-3xl font-extrabold text-gray-800">{stat.count}</h4>
+                                    <p className="text-sm text-gray-500">{stat.label}</p>
+                                </div>
+                                <stat.icon className={`text-3xl ${stat.color === 'blue' ? 'text-blue-500' :
+                                    stat.color === 'purple' ? 'text-purple-500' :
+                                        'text-red-500'
+                                    }`} />
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* اطلاعات کامل */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    {/* اطلاعات شخصی */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="bg-white rounded-3xl shadow-xl p-6 md:p-8"
+                    >
+                        <h3 className="text-xl font-extrabold text-gray-800 mb-6 flex items-center gap-3 border-b-2 border-gray-100 pb-4">
+                            <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
+                            اطلاعات شخصی
+                        </h3>
+
+                        <div className="space-y-4">
+                            <InfoItem icon={FaUser} label="نام" value={userInfo.firstName} />
+                            <InfoItem icon={FaUser} label="نام خانوادگی" value={userInfo.lastName} />
+                            <InfoItem icon={FaEnvelope} label="ایمیل" value={userInfo.email} />
+                            <InfoItem icon={FaPhone} label="شماره تماس" value={userInfo.phone} />
+                            <InfoItem icon={FaKey} label="نام کاربری" value={`@${userInfo.username}`} />
+                            <InfoItem icon={FaVenusMars} label="جنسیت" value={userInfo.gender} />
+                            <InfoItem icon={FaCalendarAlt} label="سن" value={`${userInfo.age} سال`} />
+                            <InfoItem icon={FaUserTag} label="نقش کاربری" value={userInfo.role} />
+                        </div>
+                    </motion.div>
+
+                    {/* اطلاعات آدرس */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-white rounded-3xl shadow-xl p-6 md:p-8"
+                    >
+                        <h3 className="text-xl font-extrabold text-gray-800 mb-6 flex items-center gap-3 border-b-2 border-gray-100 pb-4">
+                            <span className="w-3 h-3 bg-green-500 rounded-full"></span>
+                            اطلاعات آدرس
+                        </h3>
+
+                        <div className="space-y-4">
+                            <InfoItem icon={FaHome} label="آدرس" value={userInfo.address} />
+                            <InfoItem icon={FaCity} label="شهر" value={userInfo.city} />
+                            <InfoItem icon={FaMapMarkerAlt} label="کد پستی" value={userInfo.postalCode} />
+                        </div>
+                    </motion.div>
+
+                    {/* اطلاعات بانکی */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="bg-white rounded-3xl shadow-xl p-6 md:p-8"
+                    >
+                        <h3 className="text-xl font-extrabold text-gray-800 mb-6 flex items-center gap-3 border-b-2 border-gray-100 pb-4">
+                            <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
+                            اطلاعات بانکی
+                        </h3>
+
+                        <div className="space-y-4">
+                            <InfoItem icon={FaCreditCard} label="شماره کارت" value={userInfo.cardNumber} />
+                            <InfoItem icon={FaWallet} label="شماره شبا" value={userInfo.iban} />
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* فوتر */}
+                <div className="mt-6 text-center text-xs text-gray-400">
+                    آخرین به‌روزرسانی: {new Date().toLocaleString('fa-IR')}
                 </div>
             </div>
         </div>
     );
 }
 
-/* کامپوننت‌های کمکی زیبا (با اصلاحات) */
-
-function ProfileItem({ label, value, icon: Icon }) {
+// کامپوننت کمکی برای نمایش اطلاعات
+function InfoItem({ icon: Icon, label, value }) {
     return (
-        <div className="flex items-center gap-4 py-3 border-b border-gray-100 last:border-b-0">
-            {/* 💡 آیکون در سمت راست */}
-            <div className={`text-xl ${Icon ? 'text-indigo-500' : 'text-transparent'}`}>
-                {Icon && <Icon />}
+        <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
+            <div className="text-blue-500 mt-0.5">
+                <Icon className="text-lg" />
             </div>
-
-            <div className="flex-1">
-                <p className="text-sm text-gray-500 font-normal">{label}</p>
-                <p className="text-lg font-extrabold text-gray-900">{value}</p>
+            <div className="flex-1 min-w-0">
+                <p className="text-xs text-gray-500 font-medium">{label}</p>
+                <p className="text-sm md:text-base font-semibold text-gray-800 break-words">{value}</p>
             </div>
-        </div>
-    );
-}
-
-function CardBox({ title, value, color }) {
-    const colorClasses = {
-        blue: "bg-blue-50 text-blue-800 border-blue-300",
-        green: "bg-green-50 text-green-800 border-green-300"
-    };
-
-    return (
-        // 💡 اضافه کردن shadow-lg
-        <div className={`p-5 rounded-xl border shadow-lg ${colorClasses[color]}`}>
-            <p className="text-sm opacity-80 font-medium">{title}</p>
-            <div className="mt-2 text-lg font-bold">{value}</div>
-        </div>
-    );
-}
-
-// 💡 کامپوننت StatsBox اضافه شده
-function StatsBox({ count, label, color }) {
-    const colorClasses = {
-        blue: "text-blue-600 bg-blue-100",
-        yellow: "text-yellow-600 bg-yellow-100",
-        purple: "text-purple-600 bg-purple-100",
-    };
-
-    return (
-        <div className={`text-center p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow ${colorClasses[color]} border border-white`}>
-            <h4 className="text-4xl font-extrabold mb-1">{count}</h4>
-            <p className="text-sm font-semibold opacity-80">{label}</p>
         </div>
     );
 }
