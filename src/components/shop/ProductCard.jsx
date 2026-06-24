@@ -1,7 +1,7 @@
 // components/shop/ProductCard.jsx
 import { Link } from "react-router-dom";
-import AddToCartBtn from "../AddToCartBtn";
 import { FaStar } from "react-icons/fa";
+import AddToCartBtn from "./AddToCartBtn";
 
 export default function ProductCard({ item }) {
     return (
@@ -13,7 +13,7 @@ export default function ProductCard({ item }) {
                 <img
                     src={item.thumbnail}
                     alt={item.title}
-                    className="w-full h-48 object-contain p-4 bg-gray-50 border-b border-gray-100"
+                    className="w-full h-60 object-contain p-4 bg-gray-50 border-b border-gray-100"
                 />
             </Link>
             <div className="p-5">

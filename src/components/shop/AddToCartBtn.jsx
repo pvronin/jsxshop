@@ -1,4 +1,4 @@
-import { decrement, increment } from "../store/slices/Cartslice";
+import { decrement, increment } from "../../store/slices/Cartslice";
 import { useDispatch, useSelector } from "react-redux";
 import { TiMinus, TiPlus } from "react-icons/ti";
 import { MdAddShoppingCart } from "react-icons/md";

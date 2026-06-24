@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
-import './App.css'
 import LoadingSpinner from './components/LoadingSpinner';
 import { Profile } from './pages/Profile';
 import ScrollToTop from './components/ScrollToTop';

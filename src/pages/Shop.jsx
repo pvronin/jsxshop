@@ -11,6 +11,8 @@ import ShopPagination from "../components/shop/ShopPagination";
 import ShopSidebar from "../components/shop/ShopSidebar";
 import MobileSidebarWrapper from "../components/shop/MobileSidebarWrapper"; // ← ایمپورت جدید
 import LoadingSpinner from "../components/LoadingSpinner";
+import { productApi } from "../services/productApi";
+import ProductGrid from "../components/shop/ProductGrid";
 
 export default function Shop() {
     const [currentpage, setCurrentpage] = useState(1);
@@ -36,23 +38,40 @@ export default function Shop() {
         setCurrentpage(1);
     }, [location.pathname]);
 
+    // داخل کامپوننت Shop
     const buildQueryParams = () => {
-        const params = new URLSearchParams();
-        params.append('limit', 200);
-        if (sortBy === "price-asc") { params.append("sortBy", "price"); params.append("order", "asc"); }
-        else if (sortBy === "price-desc") { params.append("sortBy", "price"); params.append("order", "desc"); }
-        else if (sortBy === "rating-desc") { params.append("sort", "rating"); params.append("order", "desc"); }
-        else if (sortBy === "discount-desc") { params.append("sort", "discount"); params.append("order", "desc"); }
-        return params.toString();
+        const params = { limit: 200 }; // حتماً limit رو بذار تا همه محصولات بیاد
+
+        if (sortBy === "price-asc") {
+            params.sortBy = "price";
+            params.order = "asc";
+        } else if (sortBy === "price-desc") {
+            params.sortBy = "price";
+            params.order = "desc";
+        } else if (sortBy === "rating-desc") {
+            params.sortBy = "rating";
+            params.order = "desc";
+        } else if (sortBy === "discount-desc") {
+            params.sortBy = "discountPercentage";
+            params.order = "desc";
+        }
+
+        return params;
     };
 
     const fetchProducts = async () => {
-        const queryString = buildQueryParams();
-        const url = filters.category
-            ? `https://dummyjson.com/products/category/${filters.category}?${queryString}`
-            : `https://dummyjson.com/products?${queryString}`;
-        const { data } = await axios.get(url);
-        return data;
+        const params = buildQueryParams(); // الان یک آبجکت است
+
+
+        let response;
+        if (filters.category) {
+            response = await productApi.getByCategory(filters.category, params);
+        } else {
+            response = await productApi.getAll(params);
+        }
+
+        // چون apiClient ما یک آبجکت با کلید data برمی‌گرداند
+        return response.data; // ← این شامل { products: [...], total: ... } است
     };
 
     const { data, isLoading, error } = useQuery({
@@ -141,28 +160,7 @@ export default function Shop() {
                             showSidebarMobile={showSidebarMobile}
                         />
 
-                        {isLoading ? (
-                            <LoadingSpinner />
-                        ) : (
-                            <>
-                                {currentProducts.length > 0 ? (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 60 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5 }}
-                                        className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 min-h-auto"
-                                    >
-                                        {currentProducts.map((item) => (
-                                            <ProductCard key={item.id} item={item} />
-                                        ))}
-                                    </motion.div>
-                                ) : (
-                                    <div className="bg-white rounded-2xl shadow-lg p-16 text-center text-xl text-gray-500 border border-gray-200">
-                                        😔 محصولی با این فیلترها یافت نشد. فیلترها را پاک کنید یا تغییر دهید.
-                                    </div>
-                                )}
-                            </>
-                        )}
+                        {isLoading ? <LoadingSpinner /> : <ProductGrid products={currentProducts} />}
 
                         <ShopPagination
                             currentPage={currentpage}

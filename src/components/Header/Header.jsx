@@ -4,8 +4,8 @@ import { FaUserCircle, FaShoppingCart, FaHome, FaStore, FaCircle, FaSearch } fro
 import { RiArrowRightWideFill } from "react-icons/ri";
 
 import { useEffect, useState, useRef } from "react";
-import { fetchCategories } from "../store/slices/CategorySlice";
-import Logo from "./Logo";
+import { fetchCategories } from "../../store/slices/CategorySlice";
+import Logo from "../Logo";
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -154,7 +154,7 @@ export default function Header() {
                                             className="flex items-center justify-between gap-4 p-3 hover:bg-blue-50 border-b border-blue-100 last:border-0 group transition-all"
                                         >
                                             <div className="flex items-center gap-2">
-                                                <img src={product.thumbnail} alt="" className="w-8 h-8 object-cover rounded" />
+                                                <img src={product.thumbnail} alt="" className="w-10 h-10 md:w-16 md:h-16 object-cover rounded" />
                                                 <div className="flex flex-col gap-2">
                                                     <span className="text-xs md:text-sm font-medium text-gray-800 line-clamp-1">{product.title}</span>
                                                     <span className="text-[9px] md:text-xs text-blue-600 font-bold">${product.price}</span>

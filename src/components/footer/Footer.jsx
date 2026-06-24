@@ -1,24 +1,13 @@
-import { Link } from 'react-router-dom';
-import { FaStore, FaInstagram, FaTwitter, FaFacebookF, FaTelegram, FaWhatsapp } from 'react-icons/fa';
-import Logo from './Logo';
+import { FaInstagram, FaTelegram, FaWhatsapp } from 'react-icons/fa';
+import Logo from '../Logo';
+import FooterLink from './FooterLink';
 
-// 💡 یک کامپوننت کمکی برای لینک‌های فوتر تا کد تمیزتر باشد
-const FooterLink = ({ to, children }) => (
-    <li>
-        <Link
-            to={to}
-            className="text-slate-300 hover:text-white hover:underline transition-colors duration-200"
-        >
-            {children}
-        </Link>
-    </li>
-);
 
 export default function Footer() {
     return (
         <footer className="bg-slate-900 text-white">
             <div className="container mx-auto px-6 py-6">
-                <div className="grid grid-cols-1  lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
 
                     {/* ستون اول: لوگو و توضیحات */}
                     <div className="flex flex-col gap-4">
@@ -32,10 +21,10 @@ export default function Footer() {
                     <div>
                         <h3 className="text-lg font-semibold mb-4">دسترسی سریع</h3>
                         <ul className="space-y-3">
-                            <FooterLink to="/">خانه</FooterLink>
-                            <FooterLink to="/shop">فروشگاه</FooterLink>
-                            <FooterLink to="/cart">سبد خرید</FooterLink>
-                            <FooterLink to="/profile">پروفایل من</FooterLink>
+                            <FooterLink link="/">خانه</FooterLink>
+                            <FooterLink link="/shop">فروشگاه</FooterLink>
+                            <FooterLink link="/cart">سبد خرید</FooterLink>
+                            <FooterLink link="/profile">پروفایل من</FooterLink>
                         </ul>
                     </div>
 
@@ -56,26 +45,32 @@ export default function Footer() {
                         <p className="text-slate-400 text-sm mb-4">
                             در شبکه‌های اجتماعی همراه ما باشید.
                         </p>
-                        {/* 💡 کلاس space-x-reverse برای چینش صحیح آیکون‌ها در حالت راست‌چین */}
-                        <div className="flex items-center space-x-4">
+                        {/* ✅ ۲. به جای space-x-4 از gap-4 استفاده کردم (در RTL بدون مشکل کار میکنه) */}
+                        <div className="flex items-center gap-4">
                             <a
                                 href="https://www.instagram.com/alih._.exe?igsh=NTUwZjM3ZHc5c2t1"
                                 className="text-slate-300 hover:text-white transition-colors p-2 bg-slate-700 hover:bg-slate-600 rounded-full"
-                                aria-label="اینستاگرام"
+                                aria-label="اینستاگرام" // ✅ درست
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <FaInstagram className="text-2xl" />
                             </a>
                             <a
-                                href="t.me/Warshade"
+                                href="https://t.me/Warshade" // ✅ ۳. پروتکل https:// اضافه شد
                                 className="text-slate-300 hover:text-white transition-colors p-2 bg-slate-700 hover:bg-slate-600 rounded-full"
-                                aria-label="توییتر"
+                                aria-label="تلگرام" // ✅ ۴. باگ aria-label برطرف شد
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <FaTelegram className="text-2xl" />
                             </a>
                             <a
                                 href="https://wa.me/qr/MBSQMQHUXE7GD1"
                                 className="text-slate-300 hover:text-white transition-colors p-2 bg-slate-700 hover:bg-slate-600 rounded-full"
-                                aria-label="فیسبوک"
+                                aria-label="واتساپ" // ✅ ۵. باگ aria-label برطرف شد
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <FaWhatsapp className="text-2xl" />
                             </a>
