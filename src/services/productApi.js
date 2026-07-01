@@ -37,7 +37,7 @@ export const productApi = {
     getById: (id) => apiClient.get(`/products/${id}`),
 
     // ۴. جستجو در محصولات
-    getBySearch: (query) => apiClient.get(`/products/search?q=${query}`),
+    getBySearch: (query, limit = 5) => apiClient.get(`/products/search?q=${query}&limit=${limit}`),
 
     // ۵. دریافت لیست دسته‌بندی‌ها
     getCategoryList: () => apiClient.get(`/products/category-list`),

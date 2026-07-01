@@ -1,13 +1,13 @@
 // src/redux/categorySlice.js
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { productApi } from "../../services/productApi";
 
 // دریافت دسته‌بندی‌ها از API
 export const fetchCategories = createAsyncThunk(
     "categories/fetchCategories",
     async () => {
-        const response = await axios.get("https://dummyjson.com/products/category-list");
+        const response = await productApi.getCategoryList;
         return response.data;
     }
 );
